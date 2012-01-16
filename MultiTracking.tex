@@ -1,0 +1,372 @@
+\documentclass[10pt]{llncs}
+\usepackage{amsmath, amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+%\usepackage{psfig}
+\usepackage{subfigure}
+\usepackage{url}
+
+
+%\usepackage{floatflt}
+\urldef{\mailsa}\path|{alfred.hofmann, brigitte.apfel,
+ursula.barth, christine.guenther,|
+\urldef{\mailsb}\path|ingrid.haas, frank.holzwarth, anna.kramer,
+leonie.kunz, nicole.sator,|
+\urldef{\mailsc}\path|erika.siebert-cole, peter.strasser,
+lncs}@springer.com|
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+
+\begin{document}
+
+\mainmatter  % start of an individual contribution
+
+\title{Multiple Tracking with single Camera}
+
+\titlerunning{}
+
+\author{Giorgio Gemignani \inst{1} }
+%
+\authorrunning{G. Gemignani}
+
+\institute{ DSA - University of Naples Parthenope \\ Centro
+Direzionale, Isola C/4, 80143 Naples, Italy\\
+%\email{giorgio.gemignani@uniparthenope.it}\\
+}
+
+\maketitle
+
+
+
+
+
+
+
+%\begin{keywords}
+%Video Surveillance, Stopped Object Detection, Neural Model, GPGPU.
+%\end{keywords}
+%\end{abstract}
+
+\section{Abstract}
+The theory of non-linear optimal filtering is formulated in terms of Bayesian inference and both the classical and recent filtering algorithms are derived using the same Bayesian notation and formalism.
+Following the Bayesian perspective all algorithms are treated as approximations to certain probability distributions or their parameters describing both the uncertainties in the models and the physical randomness. 
+The reason for choose the Bayesian philosophy makes easier to develop a consistent, practically applicable theory of recursive inference respect with for example, least squares or maximum likelihood approaches. 
+Another useful consequence of selecting the Bayesian approach is that least squares, maximum likelihood and many other philosophically different results can be obtained as special cases or re-interpretations of the Bayesian results. 
+Modeling uncertainty as randomness is a very “engineering” way of modeling
+the world. It is exactly the approach also chosen in statistical physics as well as
+in financial analysis. The Bayesian approach to optimal filtering is far from
+new (see, e.g., Ho and Lee, 1964; Lee, 1964; Jazwinski, 1966; Stratonovich, 1968;
+Jazwinski, 1970), because the theory already existed at the same time the seminal
+article of Kalman (1960b) was published. The Kalman filter was derived from the
+least squares point of view, but the non-linear filtering theory has been Bayesian
+from the beginning (see, e.g., Jazwinski, 1970).
+The Bayesian concept of modeling unknown parameters as random variables is just a convenient way of representing uncertainty under the same formalism that is used for representing randomness, not implying that one believes that there really
+is something random in the parameters - it .
+Also random or stochastic processes appearing in the mathematical models are
+not necessarily really random in physical sense, but instead, the randomness is
+just a mathematical trick for taking into account the uncertainty in a dynamic
+phenomenon of the real world.
+
+
+\newpage
+\section{Introduction}
+Optimal filtering refers to the methodology that can be used for estimating the
+state of a time-varying system, which is indirectly observed through noisy measurements. The state of the system refers to the collection of dynamic variables
+such as position, velocities and accelerations or orientation and rotational motion
+parameters, which describe the physical state of the system. The noise in the measurements refers to a noise in the sense that the measurements are uncertain, that is,
+even if we knew the true system state the measurements would not be deterministic
+functions of the state, but would have certain distribution of possible values. The
+time evolution of the state is modeled as a dynamic system, which is perturbed
+by a certain process noise. This noise is used for modeling the uncertainties in
+the system dynamics and in most cases the system is not truly stochastic, but the
+stochasticity is only used for representing the model uncertainties.
+Phenomena, which can be modeled as time varying systems of the above type are
+very common in engineering applications. These kind of models can be found, for
+example, in navigation, aerospace engineering, space engineering, remote surveillance, telecommunications, physics, audio signal processing, control engineering,
+finance and several other fields. Examples of such applications are the following:
+
+\begin{itemize}
+\item  Global positioning system (GPS) 
+(Kaplan, 1996) is a widely used satellite
+navigation system, where the GPS receiver unit measures arrival times of
+signals from several GPS satellites and computes its position based on these
+measurements. The GPS receiver typically uses an extended Kalman filter
+or some other optimal filtering algorithm for computing the position and
+velocity such that the measurements and the assumed dynamics (laws of
+physics) are taken into account. Also the ephemeris information, which is
+the satellite reference information transmitted from the satellites to the GPS
+receivers is typically generated using optimal filters.
+\item Target tracking (Bar-Shalom et al., 2001; Crassidis and Junkins, 2004) refers
+to the methodology, where a set of sensors such as active or passive radars,
+radio frequency sensors, acoustic arrays, infrared sensors and other types
+of sensors are used for determining the position and velocity of a remote
+target. When this tracking is done continuously, the dynamics of the target
+and measurements from the different sensors are most naturally combined
+using an optimal filter. The target in this (single) target tracking case can be,
+for example, a robot, a satellite, a car or an airplane.
+\item Multiple target tracking (Bar-Shalom and Li, 1995; Blackman and Popoli,
+1999; Stone et al., 1999; Särkkä et al., 2007b) systems are used for remote
+surveillance in the cases, where there are multiple targets moving at the
+same time in the same geographical area. This arises the concept of data
+association (which measurement was from which target?) and the problem
+of estimating the number of targets. Multiple target tracking systems are
+typically used in remote surveillance for military purposes, but possible civil
+applications are, for example, monitoring of car tunnels, automatic alarm
+systems and people tracking in buildings.
+Inertial navigation (Titterton and Weston, 1997; Grewal et al., 2001) uses
+inertial sensors such as accelerometers and gyroscopes for computing the
+position and velocity of a device such as a car, an airplane or a missile.
+When the inaccuracies in sensor measurements are taken into account the
+natural way of computing the estimates is by using an optimal filter. Also
+in sensor calibration, which is typically done in time varying environment
+optimal filters are often applied.
+\item Integrated inertial navigation (Grewal et al., 2001; Bar-Shalom et al., 2001)
+combines the good sides of unbiased but inaccurate sensors, such as altime-
+ters and landmark trackers, and biased but locally accurate inertial sensors.
+Combining of these different sources of information is most naturally per-
+formed using an optimal filter such as the extended Kalman filter. This kind
+of approach was used, for example, in the guidance system of Apollo 11
+lunar module (Eagle), which landed on the moon in 1969.
+\item GPS/INS navigation (Grewal et al., 2001; Bar-Shalom et al., 2001) is a form
+of integrated inertial navigation, where the inertial sensors are combined
+with a GPS receiver unit. In GPS/INS navigation system the short term
+fluctuations of the GPS can be compensated with the inertial sensors and
+the inertial sensor biases can be compensated with the GPS receiver. An
+additional advantage of this approach is that it is possible to temporarily
+switch to pure inertial navigation, when the GPS receiver is unable to com-
+pute its position (i.e., has no fix) for some reason. This happens, for example,
+indoors, in tunnels and in other cases when there is no direct line-of-sight
+between the GPS receiver and the satellites.
+\item Spread of infectious diseases (Anderson and May, 1991) can often be mod-
+eled as differential equations for the number of susceptible, infected and re-
+covered/dead individuals. When uncertainties are induced into the dynamic
+equations, and when the measurements are not perfect, the estimation of the
+spread of the disease can be formulated as an optimal filtering problem.
+\item Biological processes (Murray, 1993) such as population growth, predator-
+pray models and several other dynamic processes in biology can also be
+modeled as (stochastic) differential equations. The estimation of the states
+of these processes from inaccurate measurements can be formulated as an
+optimal filtering problem.
+\item Telecommunications is also a field where optimal filters are traditionally
+used. For example, optimal receivers, signal detectors and phase locked
+loops can be interpreted to contain optimal filters (Van Trees, 1968, 1971)
+as components. Also the celebrated Viterbi algorithm (Viterbi, 1967) can be
+interpreted as a combination of optimal filtering and optimal smoothing of
+the underlying hidden Markov model.
+\item Audio signal processing applications such as audio restoration (Godsill and
+Rayner, 1998) and audio signal enhancement (Fong et al., 2002) often use
+TVAR (time varying autoregressive) models as the underlying audio signal
+models. These kind of models can be efficiently estimated using optimal
+filters and smoothers.
+\item Stochastic optimal control (Maybeck, 1982b; Stengel, 1994) considers con-
+trol of time varying stochastic systems. Stochastic controllers can typically
+be found in, for example, airplanes, cars and rockets. The optimality, in
+addition to the statistical optimality, means that control signal is constructed
+to minimize a performance cost, such as expected time to reach a predefined
+state, the amount of fuel consumed or average distance from a desired po-
+sition trajectory. Optimal filters are typically used for estimating the states
+of the stochastic system and a deterministic optimal controller is constructed
+independently from the filter such that it uses the estimate of the filter as
+the known state. In theory, the optimal controller and optimal filter are not
+completely decoupled and the problem of constructing optimal stochastic
+controllers is far more challenging than constructing optimal filters and (de-
+terministic) optimal controllers separately.
+\item Learning systems or adaptive systems can often be mathematically formu-
+tions has close relationship with Bayesian non-parametric modeling, ma-
+chine learning and neural network modeling (MacKay, 1998; Bishop, 1995).
+Methods, which are similar to the data association methods in multiple target
+tracking are also applicable to on-line adaptive classification (Andrieu et al.,
+2002). The connection between Gaussian process regression and optimal
+filtering has also been recently discussed in Särkkä et al. (2007a) and Har-
+tikainen and Särkkä (2010).
+\item Physical systems which are time varying and measured through unideal sen-
+sors can sometimes be formulated as stochastic state space models, and the
+time evolution of the system can be estimated using optimal filters (Kaipio
+and Somersalo, 2005). In Vauhkonen (1997) and more recently, for example,
+in Pikkarainen (2005) optimal filtering is applied to Electrical Impedance
+Tomography (EIT) problem in time varying setting and in Hiltunen et al.
+(2011) to the Diffuse Optical Tomography (DOT).
+\end{itemize}
+
+\subsection{Origins of Bayesian Optimal Filtering} 
+
+The roots of Bayesian analysis of time dependent behavior are in the optimal linear
+filtering. The idea of constructing mathematically optimal recursive estimators was
+first presented for linear systems due to their mathematical simplicity and the most natural optimality criterion in both mathematical and modeling point of view was the least squares optimality. For linear systems the optimal Bayesian solution (with MMSE utility) coincides with the least squares solution, that is, the optimal least squares solution is exactly the posterior mean.\\
+The history of optimal filtering starts from the Wiener filter (Wiener, 1950), which is a spectral domain solution to the problem of least squares optimal filtering of stationary Gaussian signals. The Wiener filter is still important in communication applications (Proakis, 2001), digital signal processing (Hayes, 1996) and image processing (Rafael C. Gonzalez, 2008). The disadvantages of the Wiener filter are that it can only be applied to stationary signals and that the construction of a Wiener filter is often mathematically demanding and these mathematics cannot be avoided (i.e., made transparent).\\
+Due to the demanding mathematics the Wiener filter can only be applied to simple low dimensional filtering problems. The success of optimal linear filtering in engineering applications is mostly due to the seminal article of Kalman (1960b), which describes the recursive solution to the optimal discrete-time (sampled) linear filtering problem. The reason to the success is that the Kalman filter can be understood and applied with very much lighter mathematical machinery than the Wiener filter. \\
+Also, despite its mathematical simplicity, the Kalman filter (or actually the Kalman-Bucy filter; Kalman and Bucy, 1961) contains the Wiener filter as its limiting special case.In the early stages of its history, the Kalman filter was soon discovered to belong to the class of Bayesian estimators (Ho and Lee, 1964; Lee, 1964; Jazwinski, 1966, 1970). \\
+An interesting historical detail is that while Kalman and Bucy were formulating the linear theory in the United States, Stratonovich was doing the pioneering work on the probabilistic (Bayesian) approach in Russia (Stratonovich, 1968; Jazwinski, 1970).
+As discussed in the book of West and Harrison (1997), in the sixties, Kalman filter like recursive estimators were also used in the Bayesian community and it is not clear whether the theory of Kalman filtering or the theory of dynamic linear models (DLM) was the first. Although these theories were originally derived from slightly different starting points, they are equivalent. Because of Kalman filter’s useful connection to the theory and history of stochastic optimal control, this document approaches the Bayesian filtering problem from the Kalman filtering point of view.\\
+Although the original derivation of the Kalman filter was based on the least squares approach, the same equations can be derived from the pure probabilistic Bayesian analysis. The Bayesian analysis of Kalman filtering is well covered in the classical book of Jazwinski (1970) and more recently in the book of Bar-Shalom et al. (2001). Kalman filtering, mostly because of its least squares interpretation, has widely been used in stochastic optimal control. \\
+A practical reason to this is that the inventor of the Kalman filter, Rudolph E. Kalman, has also made several contributions (Kalman, 1960a) to the theory of linear quadratic Gaussian (LQG) regulators, which are fundamental tools of stochastic optimal control (Stengel,1994; Maybeck, 1982b).\\ 
+Optimal Bayesian filtering (see, e.g. Jazwinski, 1970; Bar-Shalom et al., 2001;Doucet et al., 2001; Ristic et al., 2004) considers statistical inversion problems, where the unknown quantity is a vector valued time series $(x_1 , x_2 , . . x_T)$ which is observed through noisy measurements $(y_1 , y_2 , . . ,y_T)$ as illustrated in the Figure 1.4.
+An example of this kind of time series is shown in the Figure 1.5. 
+The process shown is actually a discrete-time noisy resonator with a known angular velocity.The state $ x_k = ( x_{k}  x_k )^T $ is two dimensional and consists of the position of the resonator $x_k$ and its time derivative $x_k$ . The measurements $y_k$ are scalar observations of the resonator position (signal) and they are corrupted by measurement noise.
+The purpose of the statistical inversion is to estimate the hidden states 
+$X=(x_1 , . . . , x_T)$ given the observed measurements $Y=(y_1 , . . . , y_T)$, which means that in the Bayesian sense (Bernardo and Smith, 1994; Gelman et al., 1995) equals to compute the joint posterior distribution of all the states given all the measurements.\\\
+This can be done by straightforward application of the Bayes rule:
+
+\begin{equation}  \label{eqn: Bayes rule}
+p(x_1 , x_2 , . . x_T | y_1 , y_2 , . . ,y_T)=
+\frac{ p(y_1 , . . ,y_T | x_1 , . ., x_T  ) p(x_1 , . . ,x_T) }{p(y_1,..,y_T)}
+\end{equation}
+
+where:
+
+\begin{itemize}
+\item $p(x_1,...,x_T)$ is \textit{the prior} defined by the dinamical model,
+
+\item $p(y_1 , . . ,y_T | x_1 , . ., x_T)$ is the \textit{likelihood} model for the measurements,
+
+\item $p(y_1,..,y_T)$ is the \textit{evidence} factor defined as: 
+
+\begin{eqnarray} \label{eqn: Evidence eq}
+p(y_1,..,y_T)=
+\int p(y_1 , . . ,y_T , x_1 , . ., x_T  ) d(x_1 , . ., x_T ) \nonumber \\
+\int p(y_1 , . . ,y_T | x_1 , . ., x_T  ) p(x_1 , . ., x_T ) d(x_1 , . ., x_T )
+\end{eqnarray}
+
+\end{itemize}
+Unfortunately, this full posterior formulation has the serious disadvantage that each
+time we obtain a new measurement, the full posterior distribution would have to
+be recomputed. \\
+This is particularly a problem in dynamic estimation (which is exactly the problem we are solving here!), because there measurements are typically obtained one at a time and we would want to compute the best possible estimate after each measurement. When number of time steps increases, the dimensionality of the full posterior distribution also increases, which means that the computational complexity of a single time step increases.\\
+Thus after a sufficient number of time steps the computations will become intractable, independently of available computational resources. Without additional information or harsh approximations, there is no way of getting over this problem in the full posterior computation.\\
+However, the above problem only arises when we want to compute the full posterior distribution of the states at each time step. If we are willing to relax this a bit and be satisfied with selected marginal distributions of the states, the computations become order of magnitude lighter. In order to achieve this, we also need to restrict the class of dynamic models into probabilistic Markov sequences, which as a restriction sounds more restrictive than it really is.\\
+The model for the states and measurements will be assumed to be of the following type:\\
+\begin{itemize}
+
+\item \textbf{Initial distribution} specifies \textit{the prior distribution} $p(x_0 )$ of the hidden state $x_0$ at initial time step $k = 0$ ,
+
+\item \textbf{Dynamic model} models the \textit{system dynamics and its uncertainties as a Markov sequence} , defined in terms of the transition distribution $p(x_k | x_{k−1} )$ ,
+
+\item \textbf{Measurement model} models \textit{the relation} between the observed measurement $y_k$ on the current state $x_k$ . This dependence is modeled by specifying the distribution of the measurement given the state $p(y_k | x_k )$ .
+\end{itemize}
+
+Because computing the full joint distribution of the states at all time steps is computationally very inefficient and unnecessary in real-time applications, in optimal
+(Bayesian) filtering the following marginal distributions are considered instead:
+\begin{itemize}
+\item \textbf{Filtering distributions} are the marginal distributions of the current state $x_k$ given the previous measurements ${y_1 , . . . , y_k}$:
+
+\begin{eqnarray} \label{eqn: Filtering distributions}
+p(x_k | y_1 , . . . , y_k ), & k = 1, . . . , T.
+\end{eqnarray}
+
+\item \textbf{Prediction distributions} are the marginal distributions of the future states, $n$ steps after the current time step:
+\begin{eqnarray} \label{eqn: Prediction distributions}
+p(x_{k+n} | y_1 , . . . , y_k ) , k = 1, . . . , T , & n = 1, 2, . . . ,
+\end{eqnarray}
+
+\item \textbf{Smoothing distributions} are the marginal distributions of the states $x_k$ given a certain interval ${y_1 , . . . , y_T }$ of measurements with $T > k$:
+
+\begin{eqnarray}\label{eqn: Smoothing distributions}
+p(x_k | y_1 , . . . , y_T ), k = 1, . . . , T.
+\end{eqnarray}
+
+\end{itemize}
+
+
+\subsection{Algorithms for Optimal Filtering and Smoothing}
+There exists a few classes of filtering and smoothing problems which have closed
+form solutions:
+\begin{itemize}
+\item \textit{Kalman filter} (\textbf{KF}) is a closed form solution to the discrete linear filtering problem. Due to linear Gaussian model assumptions the posterior distribution is exactly Gaussian and no numerical approximations are needed.
+\item \textit{Rauch-Tung-Striebel smoother} (\textbf{RTSS}) is the corresponding closed form smoother
+to linear Gaussian state space models.
+\item \textit{Grid filters and smoothers}, are solutions to Markov models with finite state
+spaces.But because the Bayesian optimal filtering and smoothing equations are generally
+computationally intractable, many kinds of numerical approximation methods have
+been developed, for example:
+\item \textit{Extended Kalman filter} (\textbf{EKF}) approximates the non-linear and non-Gaussian
+measurement and dynamic models by linearization, that is, by forming a
+Taylor series expansion on the nominal (or Maximum a Posteriori, MAP)
+solution. This results in Gaussian approximation to the filtering distribution.
+\item \textit{Extended Rauch-Tung-Striebel} smoother (\textbf{ERTSS}) is the approximate non-
+linear smoothing algorithm corresponding to EKF.
+\item \textit{Unscented Kalman filter} (\textbf{UKF}) approximates the propagation of densities through the non-linearities of measurement and noise processes by unscented
+transform. This also results in Gaussian approximation.
+Unscented Rauch-Tung-Striebel smoother (\textbf{URTSS}) is the approximate non-
+linear smoothing algorithm corresponding to UKF.
+\item \textit{Sequential Monte Carlo methods or particle filters and smoothers} represent
+the posterior distribution a as weighted set of Monte Carlo samples.
+\item \textit{ Unscented particle filter} (\textbf{UPF}) and local linearization based methods use
+\textbf{UKFs} and \textbf{EKFs}, respectively, for approximating the importance distribu-
+tions in sequential importance sampling.
+\item \textit{ Rao-Blackwellized particle filters and smoothers} use closed form integration (e.g., Kalman filters and \textbf{RTS} smoothers) for some of the state variables and Monte Carlo integration for others.
+\item \textit{Interacting multiple models} (\textbf{IMM}), and other multiple model methods approximate the posterior distributions with mixture Gaussian approximations.
+\item \textit{Grid based methods} approximate the distribution as a discrete distribution
+defined in a finite grid.
+\item Other methods also exists, for example, based on series expansions, describ-
+ing functions, basis function expansions, exponential family of distributions,
+variational Bayesian methods, batch Monte Carlo (e.g., MCMC), Galerkin
+approximations etc.
+\end{itemize}
+
+
+
+
+\newpage
+
+
+
+\include{PBF}
+\include{MCMC}
+\include{MTT}
+
+
+
+
+
+%%%%%%%%%%%%%%%
+% Bibliografia
+%%%%%%%%%%%%%%%
+%
+  
+\bibliographystyle{unsrt}
+\begin{thebibliography}{99}
+
+\bibitem{Collins00}
+R.T. Collins et al., A System for Video Surveillance and
+Monitoring, The Robotics Institute, Carnegie Mellon University,
+Tech. Rep. CMU-RI-TR-00-12, 2000.
+%
+\bibitem{ZM}
+ZONEMINDER reference, http://www.zoneminder.com
+
+%
+\bibitem{PETS07}
+J.M. Ferryman (Ed.): Proceedings of the 10th IEEE International
+Workshop on PETS, Rio de Janeiro, Brazil, October 14, 2007.
+
+\bibitem{Herrero03}
+E. Herrero-Jaraba et al., Detected Motion Classification with a
+Double-background and a Neighborhood-based Difference,
+%Pattern Recognition Letters 24, 2079--2092, 2003.
+Patt. Recogn. Lett. 24, 2079--2092, 2003.
+%
+\bibitem{TIP08}
+L. Maddalena and A. Petrosino, A Self-Organizing Approach to
+Background Subtraction for Visual Surveillance Applications, {\sl
+IEEE Transactions on Image Processing}, vol. 17, no. 7, pp. July,
+2008.
+%
+\bibitem{OpenMP}
+OpenMP, OpenMP guide, http://www.openmp.org
+
+\bibitem{OpenCV}
+OpenCV, OpenCV guide, http://opencv.willowgarage.com
+%
+\bibitem{Porikli08}
+F. Porikli,Y. Ivanov, T. Haga,
+Robust Abandoned Object Detection Using Dual Foregrounds,
+EURASIP Journal on Advances in Signal Processing, 2008.
+
+\bibitem{i-LIDS}
+Proc. of Fourth IEEE International Conference on Advanced Video
+and Signal Based Surveillance (AVSS 2007), IEEE Computer Society,
+2007.
+
+\end{thebibliography}
+
+\end{document}

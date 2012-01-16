@@ -1,0 +1,196 @@
+\documentclass[10pt]{llncs}
+\usepackage{amsmath,amsthm,amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+%\usepackage{psfig}
+\usepackage{subfigure}
+\usepackage{url}
+%\usepackage{floatflt}
+\urldef{\mailsa}\path|{alfred.hofmann, brigitte.apfel,
+ursula.barth, christine.guenther,|
+\urldef{\mailsb}\path|ingrid.haas, frank.holzwarth, anna.kramer,
+leonie.kunz, nicole.sator,|
+\urldef{\mailsc}\path|erika.siebert-cole, peter.strasser,
+lncs}@springer.com|
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+
+\begin{document}
+
+\mainmatter  % start of an individual contribution
+
+\title{Rapporto Tecnico}
+
+\titlerunning{Multi Tracking in World Single Camera}
+
+\author{Giorgio Gemignani\inst{1}}%
+
+%
+\authorrunning{G. Gemignani}
+
+\institute{ DSA - University of Naples Parthenope \\ Centro
+Direzionale, Isola C/4, 80143 Naples, Italy\\
+\email{giorgio.gemignani@uniparthenope.it}\\
+}
+
+\maketitle
+
+
+
+
+
+
+
+%\begin{keywords}
+%Video Surveillance, Stopped Object Detection, Neural Model, GPGPU.
+%\end{keywords}
+%\end{abstract}
+
+\section{Modello Grafico Utilizzato}
+Variabili utili
+
+\newpage
+\section{Introduzione}
+
+\begin{itemize}
+\item individuare le tecniche pi\'u performanti a prescindere dalle caratteristiche degli strumenti di acquisizione video a nostra disposizione.
+\item dividere il l'attivit\'a di prototipazione in due task paralleli e indipendenti assegnati a due gruppi di lavoro. 
+\end{itemize}
+
+
+
+\newpage
+
+
+\section{ Progettazione del software}
+
+
+\\
+\\
+{\bf PROCESS FRAMES}\\[.4cm]
+{\sf
+Input: pixel $\textbf{x}$ in sequence frame $I_t, t=0$, \ldots, LastFrame\\
+Output:\\ 
+$Count_t$, numero veicoli in movimento nella ROI\\[.2cm]
+$Density_t$, stima della densit\'a del traffico veicolare \\[.2cm]
+0. $ ROI=SelectROI(I_0)$ \\
+\\
+1. $ ROI_perspective= PerspectiveTransform(ROI) $ \\
+\\
+2. $InitializeModels(B_0(\textbf{x}))$\\
+\\
+3. {\bf for} t=1, Kinit\\
+\\
+4. \hspace*{0.2cm}  $CalibrateModels(B_t(\textbf{x}))$\\
+\\
+5. {\bf for} t=CurrentFrame\\
+\\
+6. \hspace*{0.2cm} {\em $(F(\textbf{x}) =
+UpdateModels(B_t(\textbf{x})), I_t(\textbf{x}))$}\\% \hfill (1)\\
+\\
+7. \hspace*{0.2cm} 
+{$Blobs_t=GetConnectedComponents(F(\textbf{x}))$} \\
+\\
+8. \hspace*{0.2cm}
+$ (Count_t,Density_t)= CountBlob(Blobs_t,ROIw)$
+}\\[.4cm]
+\\
+\\
+
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{| l | l | l | l |}
+\hline
+\mbox{Livello Reale $\setminus$ Livello Stimato} & Traffico Basso (\textbf{0})  & Traffico Medio (\textbf{1}) & Traffico Elevato(\textbf{2}) \\
+\hline
+Traffico Basso (\textbf{0})     &  $T_p$ &  $F_n$ &  $F_n$\\
+\hline
+Traffico Medio (\textbf{1})   &  $F_p$ &  $T_p$ &  $F_n$\\
+\hline
+Traffico Elevato (\textbf{2}) &  $F_p$ &  $F_p$ &  $T_p$ \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Risultati} 
+\label{tab:tableMatriceConfusione}
+\end{table}
+
+
+\begin{table}
+\caption{Ground truth} 
+\label{tab:testAVSS} \centering
+\begin{tabular}{ccccc}
+\hline %\noalign{\smallskip}
+\emph{Video} &  \emph{Traffico Basso}  &  \emph{Traffico Medio} &  \emph{Traffico Alto} &  \emph{ Numero Veicoli Passanti} \\
+\hline %\noalign{\smallskip}
+Sequenza Easy   & $447$ & $770$ & $283$ & $28$   \\
+Sequenza Medium & $281$ & $697$ & $522$ & $21$ \\
+Sequenza Hard   & $603$ & $819$ & $78$  & $17$   \\
+
+\hline
+\end{tabular}
+%\end{floatingtable}
+\end{table}
+
+
+
+
+
+\newpage
+
+
+
+
+%%%%%%%%%%%%%%%
+% Bibliografia
+%%%%%%%%%%%%%%%
+%
+  
+\bibliographystyle{unsrt}
+\begin{thebibliography}{99}
+
+\bibitem{Collins00}
+R.T. Collins et al., A System for Video Surveillance and
+Monitoring, The Robotics Institute, Carnegie Mellon University,
+Tech. Rep. CMU-RI-TR-00-12, 2000.
+%
+\bibitem{ZM}
+ZONEMINDER reference, http://www.zoneminder.com
+
+%
+\bibitem{PETS07}
+J.M. Ferryman (Ed.): Proceedings of the 10th IEEE International
+Workshop on PETS, Rio de Janeiro, Brazil, October 14, 2007.
+
+\bibitem{Herrero03}
+E. Herrero-Jaraba et al., Detected Motion Classification with a
+Double-background and a Neighborhood-based Difference,
+%Pattern Recognition Letters 24, 2079--2092, 2003.
+Patt. Recogn. Lett. 24, 2079--2092, 2003.
+%
+\bibitem{TIP08}
+L. Maddalena and A. Petrosino, A Self-Organizing Approach to
+Background Subtraction for Visual Surveillance Applications, {\sl
+IEEE Transactions on Image Processing}, vol. 17, no. 7, pp. July,
+2008.
+%
+\bibitem{OpenMP}
+OpenMP, OpenMP guide, http://www.openmp.org
+
+\bibitem{OpenCV}
+OpenCV, OpenCV guide, http://opencv.willowgarage.com
+%
+\bibitem{Porikli08}
+F. Porikli,Y. Ivanov, T. Haga,
+Robust Abandoned Object Detection Using Dual Foregrounds,
+EURASIP Journal on Advances in Signal Processing, 2008.
+
+\bibitem{i-LIDS}
+Proc. of Fourth IEEE International Conference on Advanced Video
+and Signal Based Surveillance (AVSS 2007), IEEE Computer Society,
+2007.
+
+\end{thebibliography}
+
+\end{document}

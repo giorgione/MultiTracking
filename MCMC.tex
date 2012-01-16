@@ -1,0 +1,349 @@
+\chapter*{Markov Chain Monte Carlo}
+\section{Introduction}
+The application of probabilistic models to data often leads to inference problems that require the integration of complex, high dimensional distributions. Markov chain Monte Carlo (\textbf{MCMC}), is a general computational approach that replaces analytic integration by summation over samples generated from iterative algorithms.\\
+Problems that are intractable using analytic approaches often become possible to solve using some form of \textbf{MCMC}, even with high-dimensional problems. \\
+The development of \textbf{MCMC} is arguably the biggest advance in the computational approach to statistics. While \textbf{MCMC} is very much an active research area, there are now some standardized techniques that are widely used. In this chapter, after a brief introduction on the two main key ingredients of \textbf{MCMC} which are Monte Carlo integration and Markov chains, will discuss two forms of \textbf{MCMC}: \textit{Metropolis-Hastings} and \textit{Gibbs sampling}. 
+\section{Monte Carlo Integration}
+Many problems in probabilistic inference require the calculation of complex integrals or
+summations over very large outcome spaces. For example, a frequent problem is to calculate
+$E[g(x)]$,the expectation of a function $g(x)$ for the random variable $x$ (for simplicity, we assume $x$ is a univariate random variable) definde
+If $x$ is continuous, the expectation is defined as:
+\begin{eqnarray} \label{eqn: Expectation}
+E[g(x)] = \left\{
+\begin{array}{ccccc}
+\int g(x)p(x)dx  & \mbox{if} & $x$ & is & continuous \\
+\sum g(x)p(x)dx  & \mbox{if} & $x$ & is & discrete
+\end{array}
+\right.
+\end{eqnarray}
+
+These expectations arise in many situations where we want to calculate some statistic of a
+distribution, such as the mean or variance. For example, if $g(x) = x$, we are calculating the mean of a distribution. Integration or summation using analytic techniques can become
+quite challenging for certain distributions. For example, the density $p(x)$ might have a
+functional form that does not lend itself to analytic integration. For discrete distributions, the outcome space might become so large to make the explicit summation over all possible outcomes impractical.\\
+The general idea of Monte Carlo integration is to use samples to approximate the expectation of a complex distribution. Specifically, we obtain a set of samples $x(i), i = 1, . . . , N,$ drawn independently from distribution $p(x)$. In this case, we can approximate the expectations in \ref{eqn: Expectation} by a finite sum:
+\begin{eqnarray} \label{eqn: Expectation Approx}
+E[g(x)] = \sum_{i=1}^N g(x^i)p(x^i)
+\end{eqnarray}
+In this procedure, we have now replaced analytic integration with summation over a
+suitably large set of samples. Generally, the accuracy of the approximation can be made as
+accurate as needed by increasing $n$. Crucially, the precision of the approximation depends
+on the independence of the samples: when the samples are correlated, the effective sample
+size decreases.
+
+\section{Markov Chain}
+A Markov chain is a stochastic process where we transition from one state to another state
+using a simple sequential procedure. We start a Markov chain at some state $x^1$, and use
+a \textit{transition function} $p(x^t|x^{t-1})$, to determine the next state, $x^2$ conditioned on the last observed state. 
+We then keep iterating to create a sequence of states:
+$$
+x^1  \rightarrow  x^2  \rightarrow . . . → x^t  \rightarrow . . .
+$$
+Each such a sequence of states is called a Markov chain or simply chain. The procedure
+for generating a sequence of $T$ states from a Markov chain is the following:\\
+{\bf MARKOV CHAIN GENERATION}\\[.4cm]
+{\sf
+0. \hspace*{0.2cm} Set $t=1$  \\
+1. \hspace*{0.2cm} Generate a initial value $u$, and $set x^t = u$\\
+3. \hspace*{0.2cm}  Repeat\\
+3.1 \hspace*{0.3cm} $t=t+1$\\
+3.2 \hspace*{0.3cm} Sample a new value $u$ from the transition function $p( x^t |x^{t-1})$\\
+3.3 \hspace*{0.3cm} Set $x^t = u$\\
+4. Until $t = T$\\
+}\\[.4cm]
+\\
+\\
+
+
+Importantly, in this iterative procedure, the next state of the chain at $t+1$ is based only on the previous state at t. Therefore, each Markov chain wanders around the state space and the transition to a new state is only dependent on the last state, giving to the whole procedure a \"memoryless\" property.
+This local dependency behavior is an important property when using Markov chains for MCMC.
+When initializing each Markov chain, the chain will wander in state space around the
+starting state. Therefore, if we start a number of chains, each with different initial conditions, the chains will initially be in a state close to the starting state. This period is called the \textit{burnin}. An important property of Markov chains is that the starting state of the chain nolonger affects the state of the chain after a sufficiently long sequence of transitions (assuming that certain conditions about the Markov chain are met). At this point, the chain is said to reach its \textit{steady state} and the states reflect samples from its stationary distribution.
+\\ This property that Markov chains converge to a stationary distribution regardless of where we started (if certain regularity conditions of the transition function are met), is quite important.
+When applied to MCMC, it allow us to draw samples from a distribution using a sequential
+procedure but where the starting state of the sequence does not affect the estimation process.
+\newpage
+\section{Markov chain Monte Carlo}
+The two previous sections discussed the main two ideas underlying MCMC, Monte Carlo
+sampling and Markov chains. Monte Carlo sampling allows one to estimate various characteristics of a distribution such as the mean, variance, kurtosis, or any other statistic of interest to a researcher. Markov chains involve a stochastic sequential process where we can sample states from some stationary distribution.\\
+The goal of MCMC is to design a Markov chain such that the stationary distribution of
+the chain is exactly the distribution that we are interesting in sampling from. This is called the \textit{target distribution}.\\
+The target distribution could be the posterior distribution over the parameters in the model or the posterior predictive distribution of a model or any other distribution of interest to the researcher. 
+In other words, we would like the states sampled from some Markov chain to also be samples drawn from the target distribution. The idea is to use some clever methods for setting up the transition function such that no matter how we initialize each chain, we will convergence to the target distribution. There are a number of methods that
+achieve this goal using relatively simple procedures. We will discuss Metropolis, Metropolis-Hastings, and Gibbs sampling.
+\subsection{Metropolis sampler}
+The Metropolis sampler is special case of the Metropolis-Hastings sampler discussed in the next section. Suppose our goal is to sample from the target density $p(\theta)$, with $-\inf < \theta < \inf$ . The Metropolis sampler creates a Markov chain that produces a sequence of states:
+$$
+\theta^1 \rightarrow  \theta^2 \rightarrow. . .  \rightarrow \theta^t  \rightarrow . . .
+$$
+where $\theta^t$ represents the state of a Markov chain at iteration $t$. 
+The samples from the chain, after burnin, reflect samples from the target distribution $p(θ)$.\\
+In the Metropolis procedure, we initialize the first state, $\theta^1$ to some initial value. We then use a proposal distribution $q(\theta^t|\theta^{t-1})$ to generate a candidate point $\theta^∗$ corresponding to a possible value for state at time $t$ conditioned on the previous state of the sampler. \\
+The next step is to either accept the proposal or reject it. The probability $\alpha$ of accepting the proposal is definded as:\\
+\begin{eqnarray} \label{eqn: Acceptance Ratio Metropolis}
+\alpha = min(1, \frac{p(\theta^*)}{p(\theta^{t-1})})
+\end{eqnarray}
+To make a decision on whether to actually accept or reject the proposal, we generate a
+uniform deviate $u$. If $u > \alpha$ , we accept the proposal and the next state is set equal to the proposal:  $\theta^t=\theta^{∗}$ . \\
+ If $u \leq \alpha$, we reject the proposal, and the next state is set equal to the
+old state: $\theta^t=\theta^{t-1}$ . We continue generating new proposals conditional on the current state of the sampler, and either accept or reject the proposals. This procedure continues until the sampler reaches convergence. At this point, the samples $\theta^t$ reflect samples from the target distribution $p(\theta)$. The Metropolis sampler algorithm is :\\
+{\bf METROPOLIS Sampler}\\[.4cm]
+{\sf
+0. \hspace*{0.2cm} Set $t=1$  \\
+1. \hspace*{0.2cm} Generate a initial value $u$, and $set x(t) = u$\\
+2. \hspace*{0.2cm}  Repeat\\
+2.1 \hspace*{0.3cm} $t=t+1$\\
+2.2 \hspace*{0.3cm} generate a candidate point $\theta^∗$ from proposal distribution:
+$$
+\theta^∗ \approx q(\theta^t|\theta^{t-1}))
+$$
+2.3 \hspace*{0.3cm} calculate acceptance probability \\
+$$
+\alpha = min(1, \frac{p(\theta^*)}{p(\theta^{t-1})})
+$$
+2.4 \hspace*{0.3cm} generate $u$ from Uniform distribution in $[0 1]$\\
+2.5 \hspace*{0.3cm} if($\alpha  \leq u$)\\
+\hspace*{0.4cm}  \textbf{accept sample}: $\theta^t=\theta^∗$.\\
+\hspace*{0.3cm} else\\
+\hspace*{0.4cm}  \textbf{reject sample}: $\theta^t=\theta^{t-1}$.\\
+3. \hspace*{0.2cm} Until $t = T$\\
+}\\[.4cm]
+\\
+\\
+
+\begin{figure}[!htb]
+\begin{center}
+\begin{tabular}{ccc}
+ \includegraphics[width=4cm]{./ImaginiLatex/Metropolis1.eps} &
+ \includegraphics[width=4cm]{./ImaginiLatex/Metropolis2.eps} &
+\includegraphics[width=4cm]{./ImaginiLatex/Metropolis3.eps} \\
+a & b & c
+\end{tabular}
+\end{center}
+\caption{Illustration of the Metropolis sampler to sample from target density $p(\theta)$. (a) the current state of the chain is $\theta^t$. (b) the proposal distribution $q$ around the current state is used to generate a proposal $\theta^*$ . 
+(c) the proposal was accepted and the new state is set equal to the proposal, and the proposal distribution now centers on the new state.
+ }
+\label{fig:Metropolis}
+\end{figure}
+
+In Figure \ref{fig:Metropolis}  is illustrated how works the procedure for the generation of a sequence of two states. To intuitively understand why the process leads to samples from the target distribution, note that the method will always accept a new proposal if the the new proposal is more likely under the target distribution than the old state.
+The proposal distribution is a distribution that is chosen by the researcher and good choices for the distribution depend on the problem. One important constraint for the proposal distribution is that it should cover the state space such that each potential outcome in state space has some non-zero probability under the proposal distribution 
+old state. \\
+Therefore, the sampler will move towards the regions of the state space where the target function has high density. However, note that if the new proposal is less likely than
+than the current state, it is still possible to accept this "worse" proposal and move toward it. \\ This process of always accepting a "good" proposal, and occasionally accepting a "bad" proposal insures that the sampler explores the whole state space, and samples from all parts of a distribution (including the tails).\\
+A key requirement for the Metropolis sampler is that the proposal distribution is symmetric, such that:
+$$
+q(\theta = \theta^t|\theta^{t-1} ) = q(\theta = \theta^{t-1} |\theta^t). 
+$$
+Therefore, the probability of proposing some new state given the old state, is the same as proposing to go from the new state back to the old state. This symmetry holds with proposal distributions such as the \textit{Normal, Cauchy, Student-t}, as well as \textit{Uniform} distributions. If this symmetry does not hold, you should use the Metropolis-Hastings sampler discussed in the next section.\\
+A major advantage of the Metropolis sampler is that Equation \ref{eqn: Acceptance Ratio Metropolis} involves only a ratio of densities. Therefore, any terms independent of $\theta$ in the functional form of $p(\theta)$ will drop out.\\
+Therefore, we do not need to know the normalizing constant of the density or probability mass function. The fact that this procedure allows us to sample from unnormalized distributions is one of its major attractions. Sampling from unnormalized distributions frequently happens in Bayesian models, where calculating the normalization constant is difficult or impractical.
+\begin{example} \label{ex: Mixture of Gaussians Sampling}
+In this example we try to generate random samples from a Mixture of Gaussians distribution given by:
+$$
+	p(\theta)=\sum_{i=1}^K \pi_i N_i(\theta | \mu_i,\sigma_i)
+$$
+where:
+\begin{itemize}
+\item $K$ is the number if components in the mixture;
+\item $\pi_i$ are the mixing coefficients;
+\item $N(\mu_i,\sigma_i)$ are the Gaussians components of the mixture.
+\end{itemize}
+Our proposals are generated from a Normal $N(\theta^t, \sigma)$ distribution. 
+Therefore, the mean of the distribution is centered on the current state $\theta(t)$ and the parameter $\sigma$, which needs to be set by the modeler, controls the variability of the proposed samples.
+We fixed $N=2$, $\pi=[0.3 0.5]$ , $N_1(\theta |5,4)$ , $N_2(\theta |30,3)$.
+To explore the behavior of the sampling scheme we have generated different simulations varying the starting point $\theta(t_0)$ and  variability parameter $\sigma$, measuring the acceptance rate of the chain simulation.
+\input{tabelle/MetropolisSimulationImage}
+Figure \ref{fig:SimulationMetropolis0} - \ref{fig:SimulationMetropolis4} show the simulation results for the different chains run for $500$ iterations.
+The upper panel shows the theoretical density in the dashed red line and the histogram shows the distribution of all $500$ samples. The lower panel shows the sequence of samples of one chain.\\
+Table \ref{tab: Simulation Metropolis} reports the acceptance ratio for each simulation.\\
+\input{tabelle/MetropolisSimulation}
+
+
+\end{example}
+
+\newpage
+
+\section{Metropolis-Hasting sampler}
+The Metropolis-Hasting (\textbf{MH}) sampler is a generalized version of the Metropolis sampler in which we can apply symmetric as well as asymmetric proposal distributions. The \textbf{MH} sampler operates in exactly the same fashion as the Metropolis sampler, but uses the following acceptance probability: 
+\begin{eqnarray} \label{eqn: Acceptance Ratio MH}
+\alpha = min(1, \frac{p(\theta^*)}{p(\theta^{t-1})} \frac{q(\theta^{t-1}|\theta^∗) }{q(\theta^∗ |\theta^{t-1})}
+\end{eqnarray}
+
+The additional ratio $\frac{q(\theta^{t-1}|\theta^∗)}{q(\theta^∗ |\theta^{t-1})}$ in  \ref{eqn: Acceptance Ratio MH} corrects for any asymmetries in the proposal distribution. For example, suppose we have a proposal distribution with a mean centered on the current state, but that is skewed in one direction. If the proposal distribution prefers to move say left over right, the proposal density ratio will correct for this asymmetry.
+We can summarize the \textbf{MH} sampler in the following operations:\\
+{\bf METROPOLIS Sampler}\\[.4cm]
+{\sf
+0. \hspace*{0.2cm} Set $t=1$  \\
+1. \hspace*{0.2cm} Generate a initial value $u$, and set $\theta^1 = u$\\
+2. \hspace*{0.2cm}  Repeat\\
+2.1 \hspace*{0.3cm} $t=t+1$\\
+2.2 \hspace*{0.3cm} generate a candidate point $\theta^∗$ from proposal distribution:
+$$
+\theta^∗ \approx q(\theta^t |\theta^{t-1})
+$$
+2.3 \hspace*{0.3cm} calculate acceptance probability \\
+$$
+\alpha = min(1, \frac{p(\theta^*)}{p(\theta^{t-1})} \frac{q(\theta^{t-1}|\theta^∗)}{q(\theta^∗ |\theta^{t-1})} )
+$$
+2.4 \hspace*{0.3cm} generate $u$ from Uniform distribution in $[0 1]$\\
+2.5 \hspace*{0.3cm} if($\alpha  \leq u$)\\
+2.6 \hspace*{0.4cm}  \textbf{accept sample}: $\theta^t=\theta^∗$.\\
+2.7 \hspace*{0.3cm} else\\
+2.8 \hspace*{0.4cm}  \textbf{reject sample}: $\theta^t=\theta^{t-1}$.\\
+3. \hspace*{0.2cm} Until $t = T$\\
+}\\[.4cm]
+\\
+\\
+The fact that asymmetric proposal distributions can be used allows the Metropolis-Hastings procedure to sample from target distributions that are defined on a limited range
+(other than the uniform for which Metropolis sampler can be used). With bounded variables, care should be taken in constructing a suitable proposal distribution. Generally, a
+good rule is to use a proposal distribution has positive density on the same support as the
+target distribution.
+\begin{example} \label{ex: Mixture of Gaussians Sampling 2}
+In this example we try to generate random samples from the target distribution (\textbf{MOG}) discussed in example \ref{ex: Mixture of Gaussians Sampling}  using as proposal the Gamma distribution:
+$$
+q(\theta^t|\theta(t-1))= Gamma(\theta^t| \theta^{t-1} * \tau , frac{1}{\tau})
+$$
+This proposal density has a mean equal to $\theta^t$ so it is \"centered\" on the current state. The parameter $\tau$ is a precision parameter controlling the acceptance rate of the sampler so that higher values are associated with less variability in the proposal distribution.
+\input{tabelle/MetropolisHastingSimulationImage}
+In figures \ref{fig:SimulationMetropolisHasting0} - \ref{fig:SimulationMetropolisHasting4} are depicted the simulation results for different chains runs for $500$ iterations.
+Again, in the upper panel are depicted the theoretical density in the dashed red line and the distribution of all $500$ generated samples, while in the lower panel is showed the sequence in time of generated samples (rejected and accepted samples).\\
+In table ~\ref{tab: Simulation Metropolis} we report the acceptance ratio for each simulation.\\
+\input{tabelle/MetropolisHastingSimulation}
+\end{example}
+\newpage
+\subsection{Metropolis-Hastings for Multivariate Distributions}
+The generalization of MH sampler to multivariate distributions can be obtained following two different approaches differing each other in the strategy used to explore multidimensional spaces, namely blockwise or componentwise upadating.
+Let $\mathbf{\theta} = (\theta_1, \theta_2 , . . . ,\theta_N )$ be a random variable involving $N$ components, our objective is to generate a chain:
+$$
+\mathbf{\theta^1}  \rightarrow  \mathbf{\theta^2}  \rightarrow . .  \rightarrow  \mathbf{\theta^t}  \rightarrow . . .
+$$
+where  $\mathbf{\theta^t}$ represents the N-dimensional sample generated at time $t$.
+
+\subsubsection{Blockwise updating}
+The blockwise updating approach uses a proposal distribution having same dimensionality as the target distribution. So, if we want to sample from a probability distribution involving $N$ variables, we design a N-dimensional proposal distribution, and we either accept or reject the proposal (involving values for all $N$ variables) as a block.\\
+This leads to a generalization of the \textbf{MH} sampler where the scalar samples $\theta^t$ are now replaced by vectors $\mathbf{\theta^t}$:\\
+{\bf METROPOLIS HASTING B.W}\\[.4cm]
+{\sf
+0. \hspace*{0.2cm} Set $t=1$  \\
+1. \hspace*{0.2cm} Generate a initial value $\mathbf{\theta^1}=(\theta_1^1, \theta_2^1 , . . . ,\theta_N^1 )$\
+2. \hspace*{0.2cm}  Repeat\\
+2.1 \hspace*{0.3cm} $t=t+1$\\
+2.2 \hspace*{0.3cm} generate a candidate point $\theta^∗$ from proposal distribution:\\
+$$
+\mathbf{\theta^∗} \approx q(\mathbf{\theta^t}|\mathbf{ \theta^{t-1} })
+$$
+2.3 \hspace*{0.3cm} calculate acceptance probability \\
+$$
+\alpha = min(1, \frac{p(\mathbf{\theta^*})}{p(\mathbf{\theta^{t-1}})} \frac{q(\mathbf{\theta^{t-1}}|\mathbf{\theta^∗})}{q(\mathbf{\theta^∗} |\mathbf{\theta^{t-1}})} )
+$$
+2.4 \hspace*{0.3cm} generate $u$ from Uniform distribution in $[0 1]$\\
+2.5 \hspace*{0.3cm} if($\alpha  \leq u$)\\
+\hspace*{0.4cm}  \textbf{accept sample}: $\theta^t=\theta^∗$.\\
+\hspace*{0.3cm} else\\
+\hspace*{0.4cm}  \textbf{reject sample}: $\theta^t=\theta^{t-1}$.\\
+3. \hspace*{0.2cm} Until $t = T$\\
+}\\[.4cm]
+\\
+\\
+A potential problem with the blockwise updating approach is that it might be difficult to
+find suitable high-dimensional proposal distributions. A related problem is that blockwise
+updating can be associated with high rejection rates. 
+\subsubsection{Componentwise updating}
+Instead of accepting or rejecting a proposal for $\theta$ involving all its components simultaneously, the component wise approach generate proposal for individual components of $\theta$, once per time.\\
+This leads to a  computationally simpler updating approach where at each iteration $t$, we  make an independent proposal $\theta_i^*$ for each component status $\theta_i^t$ given its previous state  $\theta_i^{t-1}$ and evaluate the acceptance ratio comparing the likelihood of $(\theta_i^* , \theta_{j\neq i}^{t-1} )$ against $(\theta_i^{t-1} , \theta_{j\neq i}^{t-1} )$.
+Note that in this proposal procedure, we  vary at each time only one component keeping the others component constant and updated to the last generated proposal.  Therefore, what happens while proposing a new sample for $\theta_{j}^{t}$ is conditioned on what
+happened in proposal generation for all components $i<j$ .
+The whole procedure is summarized in the following steps:\\
+
+{\bf METROPOLIS-HASTING C.W. }\\[.4cm]
+{\sf
+0. \hspace*{0.2cm} Set $t=1$  \\
+1. \hspace*{0.2cm} Generate a initial value $\mathbf{\theta^1}=(\theta_1^1, \theta_2^1 , . . . ,\theta_N^1 )$\\
+2. \hspace*{0.2cm}  Repeat\\
+2.1 \hspace*{0.3cm} $t=t+1$\\
+2.2 \hspace*{0.3cm}  For $i=1:N$\\
+2.2 \hspace*{0.4cm} generate a candidate component $\theta_i^∗$ from proposal distribution:
+$$
+\theta_i^∗ \approx q( \theta_i^t |\theta_i^{t-1} )
+$$
+3.3 \hspace*{0.4cm} calculate acceptance probability \\
+$$
+\alpha = min(1, \frac{p(\theta_i^*,\theta_{j \neq i}^{t-1})}{p(\mathbf{\theta^{t-1}})} \frac{q( \theta_i^{t-1}| \theta_i^{∗} ) } { q( \theta_i^{∗}| \theta_i^{t-1} )} )
+$$
+2.4 \hspace*{0.4cm} generate $u$ from Uniform distribution in $[0 1]$\\
+2.4 \hspace*{0.4cm} if($\alpha  \leq u$)\\
+2.5 \hspace*{0.5cm}  \textbf{accept sample component}: $\theta_i^t=\theta_i^∗$.\\
+2.6 \hspace*{0.4cm} else\\
+2.7 \hspace*{0.5cm}  \textbf{reject sample component}: $\theta_i^t=\theta_i^{t-1}$.\\
+2.8 \hspace*{0.3cm}  EndFor \\
+3.\hspace*{0.2cm} Until $t = T$\\
+}\\[.4cm]
+\\
+\\
+\begin{example} \label{ex: Mixture of Multivariate Gaussians Sampling}
+In this example we try to generate random samples from a Mixture of multivariate Gaussians distribution given by:
+$$
+	p(\theta)=\sum_{i=1}^K \pi(i)N_i(\theta | \mu_i,\Sigma_i)
+$$
+where:
+\begin{itemize}
+\item $K$ is the number if components in the mixture;
+\item $\pi_i$ are the mixing coefficients;
+\item $N(\mu_i,\Sigma_i)$ are the multivariate Gaussians components of the mixture 
+parametrized by the mean vector $1 \times N \mu$ and the covariance matrix
+$N \times N \Sigma$
+\end{itemize}
+We used as proposal the Gamma distribution described in \ref{ex: Mixture of Gaussians Sampling 2}
+We fixed $N=2$, $\pi=[0.3 0.5]$ , $N_1(\theta |5,4)$ , $N_2(\theta |30,3)$.
+To explore the behavior of the sampling scheme we have generated different simulations varying the starting point $\theta(t_0)$ and the Gamma distribution parameters , measuring the acceptance rate of the chain simulation.
+%\input{tabelle/MetropolisHastingSimulationImage}
+In figures \ref{fig:SimulationMetropolisHasting0} - \ref{fig:SimulationMetropolisHasting4} are depicted the simulation results for different chains runs for $500$ iterations.
+Again, in the upper panel are depicted the theoretical density in the dashed red line and the distribution of all $500$ generated samples, while in the lower panel is showed the sequence in time of generated samples (rejected and accepted samples).\\
+In table ~\ref{tab: Simulation Metropolis} we report the acceptance ratio for each simulation.\\
+%\input{tabelle/MetropolisHastingSimulation}
+\end{example}
+
+\section{Gibbs Sampler}
+A drawback of the Metropolis-Hastings and rejection samplers is that it might be difficult
+to tune the proposal distribution. In addition, a good part of the computation is performed
+producing samples that are rejected and not used in the approximation. The Gibbs sampler
+is a procedure in which all samples are accepted, leading to improved computational efficiency. \\
+An additional advantage is that the researcher does not have to specify a proposal distribution, leaving some guessing work out of the MCMC procedure.\\
+However, the Gibbs sampler can only be applied in situations where we know the full
+conditional distributions of each component in the multivariate distribution conditioned on
+all other components. In some cases, these conditional distributions are simply not known,
+and Gibbs sampling cannot be applied. 
+However, in many Bayesian models, distributions are used that lend themselves to Gibbs sampling.
+Again we are sampling a multivariate distribution $p(\theta_1 , \theta_2, ...,\theta_N)$.
+The key requirement for the Gibbs sampler are that  conditional distributions $p(\theta_i |\theta_{j \neq i} )$ are available and that we can sample from these distributions.
+The procedure in a similar manner to the Metropolis Hasting component wise approach generate proposal for individual components of $\theta$, once per time.\\
+This leads to a  computationally simpler updating approach where at each iteration $t$, we  make a proposal $\theta_i^*$ for each component status $\theta_i^t$ conditioned on the last updated state of the others component  $\theta_{j \neq j}$ given by the $laststatus$ function:
+\begin{eqnarray} \label{eqn: lastsatus}
+laststatus(\theta_j) = \left\{
+\begin{array}{cccc}
+ \theta_j^t  & \mbox{if} & theta_j^* & \mbox{ has been proposed} \\
+ \theta_j^{t-1}  & \mbox{otherwise} & &
+\end{array}
+\right.
+\end{eqnarray}
+In contrast to Metropolis-Hastings, the procedure always accept proposal so the new state can be immediately updated. Therefore, the procedure involves \textit{iterative conditional sampling}: we keep going back and forth by sampling the new state of a variable by conditioning on the current values for the other component. 
+Here is a summary of the Gibbs sampling procedure: \\
+{\bf GIBBS-SAMPLER }\\[.4cm]
+{\sf
+0. \hspace*{0.2cm} Set $t=1$  \\
+1. \hspace*{0.2cm} Generate a initial value $\mathbf{\theta^1}=(\theta_1^1, \theta_2^1 , . . . ,\theta_N^1 )$\\
+2. \hspace*{0.2cm}  Repeat\\
+2.1 \hspace*{0.3cm} $t=t+1$\\
+2.2 \hspace*{0.3cm}  For $i=1:N$\\
+2.3 \hspace*{0.4cm} generate a candidate component $\theta_i^∗$ from tje conditional distribution:
+$$
+\theta_i^∗ \approx p( \theta_i | last(\theta_{j\neq i}) )
+$$
+
+2.4 \hspace*{0.3cm}  EndFor \\
+3.\hspace*{0.2cm} Until $t = T$\\
+}\\[.4cm]
+\\
+\\
+
