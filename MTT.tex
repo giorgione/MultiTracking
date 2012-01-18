@@ -324,12 +324,12 @@ $$
 $$
 \end{itemize}
 
-In real world crowded scenes, the assumption of independently moving targets from each other is rare. Moreover, once human targets form a group, they typically tend to move together in subsequent time frames, subject to an attractive force (group model ). Again, targets rarely occupy the same physical space, so we can introduce a repulsion force to model this event. Following this considerations, we can introduce two interaction models between targets (repulsion and group model) to aid the tracking algorithm.
+In real world crowded scenes, the assumption of independently moving targets from each other is rare. Moreover, once human targets form a group, they typically tend to move together in subsequent time frames, subject to an attractive force (group model ). Again, targets rarely occupy the same physical space, so we can introduce a repulsion force to model this event. Following this considerations, we can introduce two interaction models between targets (repulsion and group model) to aid the tracking algorithm.\\
 Since these two interactions are mutually exclusive, we introduce a hidden variable $\beta_{i,j,t}$ that lets us select the appropriate interaction model (mode
-variable).
-The interaction models are modeled as pairwise potentials between current targets’ states, thus forming a Markov Random Field as shown on fig.2. 
+variable).\\
+The interactions are modeled as pairwise potentials between current targets’ states, thus forming a Markov Random Field as shown on fig.2. 
 
-Thus, the targets’ motion model can be farther modeled as:
+Thus, the targets motion model can be farther modeled as:
 \begin{eqnarray}\label{eqn: transition factorized 2}
 p(Z^{t} |Z^{t-1} ) = \prod_{i=1}^{N} p(Z^{t,i} | Z^{t-1,i})= \nonumber \\
 \underbrace{\prod_{i<j} \psi(Z_{i,t} , Z{j,t} |\beta_{i,j,t})}_{\substack{\textit{Interactions between} \\ \textit{Targets}}}
@@ -337,16 +337,17 @@ p(Z^{t} |Z^{t-1} ) = \prod_{i=1}^{N} p(Z^{t,i} | Z^{t-1,i})= \nonumber \\
 \underbrace{\prod_{i=1}^{N} p(Z_{i,t} |Z_{i,t-1})}_{\substack{\textit{Old term} }}
 \end{eqnarray}
 
-The transition between interactions is modeled as :
+The transition between interactions is modeled by :
 $$
  p(\beta_{i,j,t} |\beta_{i,j,t-1} )= \left\{
 \begin{array}{rl}
- p_{\beta}  & \mbox{if} \beta_{i,j,t} ) = \beta_{i,j,t-1}  \\
+ p_{\beta}  & \mbox{if } \beta_{i,j,t} = \beta_{i,j,t-1}  \\
  1- p_{\beta} & \mbox{otherwise}
 \end{array}
 \right.
 $$
-The interactions between targets is modeled as pairwise potential:
+The interactions between targets are encoded by pairwise potential able of selecting
+the correct interaction model in response to the mode variable status:
 $$
 \psi(Z_{i,t} , Z{j,t} | \beta_{i,j,t} )= \left\{
 \begin{array}{rl}
@@ -367,8 +368,7 @@ where:
 \end{itemize}
 This pairwise potential has larger values as two targets are located far away, and has a value closer to $0$ when two targets are nearby.
 
-The  grouping potential function $\psi_r(Z_{i,t} , Z{j,t})$  is defined with the assumption that grouped targets move together, keeping the same distance (group movement), and the same relative location in consecutive time frames as well. This assumption can be
-modeled as $p_{i,t} − p_{j,t} \approx p_{i,t-1} - p_{j,t-1}$, which is in turn equivalent to $v_{i,t} \approx v_{j,t}$ , where $p_{i,t}$ is the target’s location in 3D and $v_{i,t}$ is the velocity component of $Z_{i,t}$ .
+The  grouping potential function $\psi_r(Z_{i,t} , Z{j,t})$  is defined with the assumption that grouped targets move together, keeping the same distance (group movement), and the same relative location in consecutive time frames as well. This assumption can be modeled as $p_{i,t} − p_{j,t} \approx p_{i,t-1} - p_{j,t-1}$, which is in turn equivalent to $v_{i,t} \approx v_{j,t}$ , where $p_{i,t}$ is the target’s location in 3D and $v_{i,t}$ is the velocity component of $Z_{i,t}$ .
 Thus, we model the group motion potential as:
 \begin{eqnarray} \label{eqn: group motion potential}
 \psi_g(Z_{i,t} , Z{j,t}) = \frac{1}{e^{s_g(r_{i,j}-tg)} } e^{-c_g \| v_{t,i}-v_{t,j} \|} 
@@ -457,24 +457,11 @@ Assuming the ground plane features are static, the motion model of  $G_{i,t}$ wi
 \section{Observations likelihood}
 As, discussed in section \ref{eqn: likelihood factorized} the observation \textit{likelihood} is factorized as product of $2$ independent components:
 the target detections likelihood $p(X^{t}, Y^t | \Omega^{t})$ and the ground point likelihood $p(\tau^{t} | G^t , \Omega^{t})$.\\
-The relationship $p(X^t, Y^t |Z^t, \Theta^t)$ between the target states $Z^t$ and observation $\{X^t, Y^t \}$, can be modeled using the camera projection function $f_P$ mixed with gaussian noise:
-\begin{eqnarray} \label{eqn: camera dynamics}
-p(X^t,Y^t | Z^t , \Theta^t )= 
- \left[
-\begin{array}{c}
-X_{i,t}  \\
-Y_{i,t}  \\
-\end{array}
-\right]
-=
-\left[
-\begin{array}{c}
-N(f_P(Z_{i,t}),W) \\
-N(f_P(Z_{i,t}),V)
-\end{array}
-\right]
+The observations likelihood  $p(X^t, Y^t |Z^t, \Theta^t)$ between the target states $Z^t$ and observation $\{X^t, Y^t \}$ is factorized as the product of two independent normal distribution depending on camera projection function $f_P$:
+\begin{eqnarray} \label{eqn: observations likelihood}
+p(X^t,Y^t | Z^t , \Theta^t )= p(X^t | Z^t , \Theta^t )p( Y^t | Z^t , \Theta^t ) = \\ \nonumber
+N(f_P(Z_{i,t}),W) N(f_P(Z_{i,t}),V)
 \end{eqnarray}
-
 The relationship $p(\tau^t |G^t , \Theta^t )$ between the ground point state $G^t$ and observation $\tau^t$,  can be modeled using the camera projection function$ f_P$ if the feature is truely static and lying on the ground plane ($\alpha=1$). \\
 However, if either the feature is moving or the feature is not on the ground plane ($\alpha=0$), the projection function $f_P$ does not model the correct relationship between $\tau_{t,i}$ and $G_{t,i}$ . 
 Thus, the observation process is modeled as:
@@ -489,12 +476,12 @@ p(\tau^t | G^t , \Theta^t ) \approx
 \end{eqnarray}
 Similar to the class variable in target model, those features that are not consistent with the majority of other features will be automatically filtered out.
 
-\section{Tracking MultiTarget by MCMC Particle Filter}
-Considering the complexity of the given probabilistic formulation, it is extremely
-challenging to design an analytical inference method for estimating the Maximum aposterior solution. This challenge is due to the presence of the high nonlinearity of projection function, the MRF induced by pairwise potential and the non-gaussian nature of the posterior and prior distribution. 
+\newpage
+\section{Maximum aposterior solution by MCMC Particle Filter}
+Considering the complexity of the given probabilistic formulation, it is extremely challenging to design an analytical inference method for estimating the Maximum aposterior solution. This challenge is due to the presence of the high nonlinearity of projection function, the MRF induced by pairwise potential and the non-gaussian nature of the posterior and prior distribution. 
 Instead of relying on an analytical solution, we employ a sampling based sequential filtering technique based on the Monte-Carlo Markov-Chain (\textbf{MCMC Particle Filter})
 Using \textbf{MCMC} sampling scheme we can propagate samples without weights in the particle filtering framework to get an approximation of the final posterior distribution .
-Specifically, at each time step $t$ we generate $N$ samples to approximate the prior distribution:
+Specifically, at each time step $t$ given a set of $N$ prediction on hidden variable status $\Omega^{t-1}$  we can approximate the prior distribution:
 \begin{eqnarray} \label{eqn: Predictive Approximation}
 p(\Omega^{t-1} |\chi^{t-1}) \approx \{ \Omega_r^{t-1} \}_{r=1}^N
 \end{eqnarray}
@@ -503,20 +490,22 @@ Propagating this samples in the \textit{Motion Model} we generate samples for th
 \int p(\Theta_{t} |\Theta_{t-1}) p(G_t |G_{t−1}) p(Z_t |Z_{t−1})p(\Omega^{t-1}|\chi^{t-1}) d\Omega^{t-1} \approx \\ \nonumber
 \sum_{r=1}^{N} p(\Theta^{t} | \Theta^{t-1}_r) p(G_t |G^{t-1}_r) p(Z^t |Z^{t-1}_r) 
 \end{eqnarray}
-
 Subsequently the final posterior distribution in time $t$ can be approximated by following equation:
 \begin{eqnarray} \label{eqn: Posterior Distribution MTT3}
 p(\Omega^{t} |\chi^{t}) \approx  p(X^{t}, Y^t |\Omega^{t}) p(\tau^{t} | G^t ,\Omega^{t}) 
 \sum_{r=1}^{N} p(\Theta^{t} | \Theta^{t-1}_r) p(G_t |G^{t-1}_r) p(Z^t |Z^{t-1}_r)
 \end{eqnarray}
-So, given the sampling method we are able to derivate the Maximum aposterior estimate for $p(\Omega^{t} |\chi^{t})$.\\
+This distribution will be the target distribution of our markov chain montecarlo method.
+Once the sampling method has reached convergency we are able to derivate the Maximum aposterior estimate for $\Omega^{t}$ simply by choosing the sample with maximum a posteriori probability value: \\
+\[
+ \operatorname{arg\,max}_{\Omega^{t}} p(X^{t}, Y^t |\Theta^{t}) p(\tau^{t} | G^t ,\Omega^{t}) p(\Theta^{t} |\chi^{t-1}) 
+\]
 As a condition for the construction of an MCMC method, we need to design a Markov chain over the joint space of $\Omega$. 
 This has the same stationary distribution as the posterior distribution 
 $p(\Omega^{t-1} |\chi^{t-1})$. 
-First, we define the \textit{proposal distribution} as a combination of:
+We define a \textit{proposal distribution} as able of generating:
 \begin{itemize}
-\item weighted sampling from all existing targets;
-\item features, and camera 
+\item samples for all existing targets, features and camera variable. 
 \item appropriate random perturbation to the chosen node additive gaussian or switching state.
 \end{itemize}
 The proposal density can be generated with the following steps: 
@@ -524,46 +513,51 @@ The proposal density can be generated with the following steps:
 \\
 {\bf PROPOSAL DISTRIBUTION GENERATION}\\[.4cm]
 {\sf
-0. \hspace*{0.2cm} At each time $t$, choose randomly one hidden state variable camera  $\Theta^t$, target $Z_i^t$ or feature $G_i^t$ with a probability
+0. \hspace*{0.2cm} At each time $t$, choose randomly one hidden state variable camera  $\Theta^t$,\\
+\hspace*{0.9cm} target $Z_i^t$ or feature $G_i^t$ with a probability
 $$
   p_i=\frac{w_i}{\sum_{k=0}^{M} w_k}
 $$
 1.  \hspace*{0.2cm} if(Sampled State Variable is Camera $\Theta^t$) \\
-1.1 \hspace*{0.4cm} generate $Theta^t=N(Theta^{t-1},S_{\Theta})$\\
-2.  \hspace*{0.2cm} if(Sampled Variable is the i-Target $Z_i^t=\{x_i, z_i, v_i^x , v_i^z , h_i,c_i \}_i$) \\
+1.1 \hspace*{0.4cm} generate $Theta^s=N(Theta^{t-1},S_{\Theta})$\\
+\\
+2.  \hspace*{0.2cm} if(Sampled Variable is the $i$-Target $Z_i^t=\{x_i, z_i, v_i^x , v_i^z , h_i,c_i \}_i$) \\ 
 2.1 \hspace*{0.4cm} generate $Z_i^s=\{x_i, z_i, v_i^x , v_i^z , h_i \}$ from $N(Z_i^{t-1},S_{Z}^t)$ \\
-2.2 \hspace*{0.4cm} switch the class variable $c_i$ by $p_c$ \\
-2.3 \hspace*{0.4cm} switch interaction mode $\beta_{i,j}^t$ for all $j$ by $p_{\beta}$\\
-3.  \hspace*{0.2cm} if(Sampled Variable is the j-Ground point $G_j=\{x_j, z_j\}$ \\
+2.2 \hspace*{0.4cm} set the class variable $c_i$ by switching randomly $c_i^{t-1}$, with a probability \\ 
+\hspace*{0.9cm} of switching $p_{c}^f$ \\
+2.3 \hspace*{0.4cm} set $\beta_{i,j}^t$ for all $j$ by switching randomly interaction mode $\beta_{i,j}^{t-1}$, \\ 
+\hspace*{0.9cm}  with a probability of switching $p_{\beta}$ \\
+\\
+3.  \hspace*{0.2cm} if(Sampled Variable is the $j$-Ground point $G_j=\{x_j, z_j\}$ \\
 3.1 \hspace*{0.4cm} generate $G_j^s=N(G_j^{t-1},S_G^t)$ \\
-3.2 \hspace*{0.4cm} switch the indicator variable $\alpha_j$ by $p_{\alpha}^f$
+3.2 \hspace*{0.4cm} set the indicator variable $\alpha_j^t$ by switching randomly $\alpha_j^t$,\\
+\hspace*{0.9cm}  with a probability of switching $p_{\alpha}^f$ 
 }\\[.4cm]
 \\
 \\
-Here we assign higher weight $w_i$ onto the camera’s state since camera parameters are coupled with all states and so this estimation process requires a larger number of trials. 
+Assigning high weight values $w_i$ to the camera's state variable we are able to generate an larger number of samples respect with the others variables. In this way we can capute camera's variability making more robust the whole estimation process since camera parameters are coupled with all states giving more sensitivity of results to the camera estimated status.\\
 
 \newpage
 \section{The Algorithm}
-The Complete procedure for the Sequential Bayesian Estimation of
- at each time step $t$ can be summarized in the following  main steps:
-\\
+The Complete procedure for the Sequential Bayesian Estimation of  at each time step $t$ can be summarized in the following  main steps:
 \\
 {\bf MCMC MULTIPLE TRACKING }\\[.4cm]
 {\sf
 \textbf{INPUT:}\\
-[.2cm] \textbf{ Observed variable} $\chi^t$ on time $t$:\\
-[.5cm] \textit{Target detections} $X^t=\{X_{t,i}\}_{i=1}^{X^{detections}}={[u_i,v_i,h_i,w_i,p_i]^t}_{i=1...X^{ detections}}$ \\
-[.5cm] \textit{Target detections} $Y^t =\{Y_{t,j}\}_{j=1...Y^{ detections}}={[u_j,v_j,h_d,w_j,p_j]^t}_{j=1...Y^{detections}}$
+[.2cm] \textbf{ Observed variable} $\chi^t$ on current image $I_t$:\\
+ \hspace*{0.2cm} \textit{Target detections} $X^t=\{X_{t,i}\}_{i=1}^{X^{detections}}={[u_i,v_i,h_i,w_i,p_i]^t}_{i=1...X^{ detections}}$ \\
+ \hspace*{0.2cm} \textit{Target detections} $Y^t =\{Y_{t,j}\}_{j=1...Y^{ detections}}={[u_j,v_j,h_d,w_j,p_j]^t}_{j=1...Y^{detections}}$\\
+ \hspace*{0.2cm} \textit{Ground point detections} $\tau^t =\{\tau_{t,g}\}_{g=1...\tau^{ detections}}={[u_h,v_h]^t}_{g=1...\tau^{detections}}$
 \\
 \\
 [.2cm] \textbf{ Hidden states} $\Omega^{t-1}$ on previous time $t-1$\\
-[.5cm] \textit{Target state} $Z^{t-1} = \{Z_{{t-1},k} \}_{k=1}^{NZ_{t-1}}=[ x_k,z_i,v_k^x,v_k^z,h_k,c_k]_{k=1..NZ_{t-1}}^{t-1}$\\
-[.5cm] \textit{Camera state} variable $\Theta^{t-1}=[\phi_{\theta}, x_{\theta}, z_{\theta} f_{\theta}, u_{\theta}, v_{\theta}, h_{\theta},r_{\theta}]^{t-1}$\\
-[.5cm] \textit{Ground feature state} variable $G^{t-1} =\{G_{(t-1),l} \}_{l=1}^{NG}=[(x_l,z_l,\alpha_l]^{t-1}$
+ \hspace*{0.2cm} \textit{Target state} $Z^{t-1} = \{Z_{{t-1},k} \}_{k=1}^{NZ_{t-1}}=[ x_k,z_i,v_k^x,v_k^z,h_k,c_k]_{k=1..NZ_{t-1}}^{t-1}$\\
+ \hspace*{0.2cm} \textit{Camera state} variable $\Theta^{t-1}=[\phi_{\theta}, x_{\theta}, z_{\theta} f_{\theta}, u_{\theta}, v_{\theta}, h_{\theta},r_{\theta}]^{t-1}$\\
+ \hspace*{0.2cm} \textit{Ground feature state} variable $G^{t-1} =\{G_{(t-1),l} \}_{l=1}^{NG}=[x_l,z_l,\alpha_l]_{k=1..NG}^{t-1}$
 \\
 \\
 \textbf{OUTPUT:}\\ 
-[.2cm] \textbf{ Maximum aposterior estimate} on current time $t$, $\Omega^{t}=\{Z^{t},Theta^{t},G^{t}\}$\\
+[.2cm] \textbf{ Maximum aposterior estimate} on current time $t$, $\Omega^{t}=\{Z^{t},\Theta^{t},G^{t}\}$\\
 %[.4cm] \textbf{Target state} $Z^{t}$\\
 %[.4cm] \textbf{Camera state} $\Theta^{t-1}$\\
 %[.4cm]\textbf{Ground feature state} $G^{t-1}$\\
@@ -571,18 +565,22 @@ The Complete procedure for the Sequential Bayesian Estimation of
 0. Solve the \textit{Association Problem} to find correspondences between detected Targets on image at current time $Det=\{(X_{t,i}, Y_{t,i})):X_{t,i} \in X^t,Y_{t,i} \in Y^t\}$ and the Target State Variables $Z^{t}$ at current time.\\
 A subset  of $Det$ will be associated to $Z^t$.\\ 
 \\
-1. \textit{Sampling generation} for $p(\Omega^{t-1} |\chi^{t-1}) \approx \{ \Omega_r^{t-1} \}_{r=1}^N$ via MCMC sampling scheme\\
-\\
-2. Calculate \textit{Montecarlo approximation} of the predictive distribution:\\
+1. Calculate \textit{Montecarlo approximation} of the predictive distribution:\\
 $$
  p(\Omega^{t} |\chi^{t-1}) \approx \\ \nonumber
 \sum_{r=1}^{N} p(\Theta^{t} | \Theta^{t-1}_r) p(G_t |G^{t-1}_r) p(Z^t |Z^{t-1}_r) 
 $$
 \\
 \\
+2. \textit{Sampling generation} for $p(\Omega^{t} |\chi^{t})$ via MCMC sampling scheme:\\
+$$
+p(\Omega^{t} |\chi^{t}) \approx  p(X^{t}, Y^t |\Omega^{t}) p(\tau^{t} | G^t ,\Omega^{t}) 
+p(\Omega^{t} |\chi^{t-1})
+$$
+\\
 3. Find \textit{Maximum aposterior} estimate $\Omega^{t}$ for $p(\Omega^{t} |\chi^{t})$:\\
 \[
- \operatorname{arg\,max}_\Omega^{t} p(X^{t}, Y^t |\Theta^{t}) p(\tau^{t} | G^t ,\Omega^{t}) p(\Theta^{t} |\chi^{t-1}) 
+ \operatorname{arg\,max}_{\Omega^{t}} p(X^{t}, Y^t |\Theta^{t}) p(\tau^{t} | G^t ,\Omega^{t}) p(\Theta^{t} |\chi^{t-1}) 
 \]
 }\\[.4cm]
 \\

@@ -68,9 +68,9 @@ The two previous sections discussed the main two ideas underlying MCMC, Monte Ca
 sampling and Markov chains. Monte Carlo sampling allows one to estimate various characteristics of a distribution such as the mean, variance, kurtosis, or any other statistic of interest to a researcher. Markov chains involve a stochastic sequential process where we can sample states from some stationary distribution.\\
 The goal of MCMC is to design a Markov chain such that the stationary distribution of
 the chain is exactly the distribution that we are interesting in sampling from. This is called the \textit{target distribution}.\\
-The target distribution could be the posterior distribution over the parameters in the model or the posterior predictive distribution of a model or any other distribution of interest to the researcher. 
-In other words, we would like the states sampled from some Markov chain to also be samples drawn from the target distribution. The idea is to use some clever methods for setting up the transition function such that no matter how we initialize each chain, we will convergence to the target distribution. There are a number of methods that
-achieve this goal using relatively simple procedures. We will discuss Metropolis, Metropolis-Hastings, and Gibbs sampling.
+The target distribution could be the posterior distribution over the parameters in the model or the posterior predictive distribution of a model or any other distribution of interest to the researcher.\\
+In other words, we would like the states sampled from some Markov chain to also be samples drawn from the target distribution. The idea is to use some clever methods for setting up the transition function such that no matter how we initialize each chain, we will convergence to the target distribution.\\
+In the next section is discussed a general MCMC procedure and its modified version: Metropolis-Hastings and Metropolis.
 \subsection{Metropolis sampler}
 The Metropolis sampler is special case of the Metropolis-Hastings sampler discussed in the next section. Suppose our goal is to sample from the target density $p(\theta)$, with $-\inf < \theta < \inf$ . The Metropolis sampler creates a Markov chain that produces a sequence of states:
 $$
@@ -296,54 +296,58 @@ $N \times N \Sigma$
 \end{itemize}
 We used as proposal the Gamma distribution described in \ref{ex: Mixture of Gaussians Sampling 2}
 We fixed $N=2$, $\pi=[0.3 0.5]$ , $N_1(\theta |5,4)$ , $N_2(\theta |30,3)$.
-To explore the behavior of the sampling scheme we have generated different simulations varying the starting point $\theta(t_0)$ and the Gamma distribution parameters , measuring the acceptance rate of the chain simulation.
-%\input{tabelle/MetropolisHastingSimulationImage}
-In figures \ref{fig:SimulationMetropolisHasting0} - \ref{fig:SimulationMetropolisHasting4} are depicted the simulation results for different chains runs for $500$ iterations.
-Again, in the upper panel are depicted the theoretical density in the dashed red line and the distribution of all $500$ generated samples, while in the lower panel is showed the sequence in time of generated samples (rejected and accepted samples).\\
-In table ~\ref{tab: Simulation Metropolis} we report the acceptance ratio for each simulation.\\
-%\input{tabelle/MetropolisHastingSimulation}
+To explore the behavior of the sampling scheme we have generated different simulations varying the starting point $\theta(t_0)$ and the Gamma distribution parameters , measuring the acceptance rate of each chain simulation. In table ~\ref{tab: Simulation Metropolis} are reported obtained result.
+\input{tabelle/MetropolisHastingCWSimulation}
+Reported results underline a typical drawback of the Metropolis-Hastings scheme and in general of rejection samplers: the difficulties
+in tuning the proposal distribution to avoid production of rejected samples that are no used in approximation process. 
+In figures \ref{fig:SimulationMetropolisHasting0} - \ref{fig:SimulationMetropolisHasting4} are showed the simulation results for different chains runs for $500$ iterations:  in the upper panel is depicted the histogram of generated samples, while in the lower panel are showed the isolines of the sampled distribution and the sequence of generated samples . The green point correspond to the starting sample, the blue point is the last generated sample while the red ones are samples generated during the simulation.\\
+Again, the simulation shows how could be difficult to tune the proposal distribution.
+\input{tabelle/MetropolisHastingCWSimulationImage}
+
+
+
 \end{example}
-
-\section{Gibbs Sampler}
-A drawback of the Metropolis-Hastings and rejection samplers is that it might be difficult
-to tune the proposal distribution. In addition, a good part of the computation is performed
-producing samples that are rejected and not used in the approximation. The Gibbs sampler
-is a procedure in which all samples are accepted, leading to improved computational efficiency. \\
-An additional advantage is that the researcher does not have to specify a proposal distribution, leaving some guessing work out of the MCMC procedure.\\
-However, the Gibbs sampler can only be applied in situations where we know the full
-conditional distributions of each component in the multivariate distribution conditioned on
-all other components. In some cases, these conditional distributions are simply not known,
-and Gibbs sampling cannot be applied. 
-However, in many Bayesian models, distributions are used that lend themselves to Gibbs sampling.
-Again we are sampling a multivariate distribution $p(\theta_1 , \theta_2, ...,\theta_N)$.
-The key requirement for the Gibbs sampler are that  conditional distributions $p(\theta_i |\theta_{j \neq i} )$ are available and that we can sample from these distributions.
-The procedure in a similar manner to the Metropolis Hasting component wise approach generate proposal for individual components of $\theta$, once per time.\\
-This leads to a  computationally simpler updating approach where at each iteration $t$, we  make a proposal $\theta_i^*$ for each component status $\theta_i^t$ conditioned on the last updated state of the others component  $\theta_{j \neq j}$ given by the $laststatus$ function:
-\begin{eqnarray} \label{eqn: lastsatus}
-laststatus(\theta_j) = \left\{
-\begin{array}{cccc}
- \theta_j^t  & \mbox{if} & theta_j^* & \mbox{ has been proposed} \\
- \theta_j^{t-1}  & \mbox{otherwise} & &
-\end{array}
-\right.
-\end{eqnarray}
-In contrast to Metropolis-Hastings, the procedure always accept proposal so the new state can be immediately updated. Therefore, the procedure involves \textit{iterative conditional sampling}: we keep going back and forth by sampling the new state of a variable by conditioning on the current values for the other component. 
-Here is a summary of the Gibbs sampling procedure: \\
-{\bf GIBBS-SAMPLER }\\[.4cm]
-{\sf
-0. \hspace*{0.2cm} Set $t=1$  \\
-1. \hspace*{0.2cm} Generate a initial value $\mathbf{\theta^1}=(\theta_1^1, \theta_2^1 , . . . ,\theta_N^1 )$\\
-2. \hspace*{0.2cm}  Repeat\\
-2.1 \hspace*{0.3cm} $t=t+1$\\
-2.2 \hspace*{0.3cm}  For $i=1:N$\\
-2.3 \hspace*{0.4cm} generate a candidate component $\theta_i^∗$ from tje conditional distribution:
-$$
-\theta_i^∗ \approx p( \theta_i | last(\theta_{j\neq i}) )
-$$
-
-2.4 \hspace*{0.3cm}  EndFor \\
-3.\hspace*{0.2cm} Until $t = T$\\
-}\\[.4cm]
-\\
-\\
+%\newpage
+%\section{Gibbs Sampler}
+%A drawback of the Metropolis-Hastings and rejection samplers is that it might be difficult
+%to tune the proposal distribution. In addition, a good part of the computation is performed
+%producing samples that are rejected and not used in the approximation. The Gibbs sampler
+%is a procedure in which all samples are accepted, leading to improved computational efficiency. \\
+%An additional advantage is that the researcher does not have to specify a proposal distribution, leaving some guessing work out of the MCMC procedure.\\
+%However, the Gibbs sampler can only be applied in situations where we know the full
+%conditional distributions of each component in the multivariate distribution conditioned on
+%all other components. In some cases, these conditional distributions are simply not known,
+%and Gibbs sampling cannot be applied. 
+%However, in many Bayesian models, distributions are used that lend themselves to Gibbs sampling.
+%Again we are sampling a multivariate distribution $p(\theta_1 , \theta_2, ...,\theta_N)$.
+%The key requirement for the Gibbs sampler are that  conditional distributions $p(\theta_i |\theta_{j \neq i} )$ are available and that we can sample from these distributions.
+%The procedure in a similar manner to the Metropolis Hasting component wise approach generate proposal for individual components of $\theta$, once per time.\\
+%This leads to a  computationally simpler updating approach where at each iteration $t$, we  make a proposal $\theta_i^*$ for each component status $\theta_i^t$ conditioned on the last updated state of the others component  $\theta_{j \neq j}$ given by the $laststatus$ function:
+%\begin{eqnarray} \label{eqn: lastsatus}
+%laststatus(\theta_j) = \left\{
+%\begin{array}{cccc}
+% \theta_j^t  & \mbox{if} & theta_j^* & \mbox{ has been proposed} \\
+% \theta_j^{t-1}  & \mbox{otherwise} & &
+%\end{array}
+%\right.
+%\end{eqnarray}
+%In contrast to Metropolis-Hastings, the procedure always accept proposal so the new state can be immediately updated. Therefore, the procedure involves \textit{iterative conditional sampling}: we keep going back and forth by sampling the new state of a variable by conditioning on the current values for the other component. 
+%Here is a summary of the Gibbs sampling procedure: \\
+%{\bf GIBBS-SAMPLER }\\[.4cm]
+%{\sf
+%0. \hspace*{0.2cm} Set $t=1$  \\
+%1. \hspace*{0.2cm} Generate a initial value $\mathbf{\theta^1}=(\theta_1^1, \theta_2^1 , . . . ,\theta_N^1 )$\\
+%2. \hspace*{0.2cm}  Repeat\\
+%2.1 \hspace*{0.3cm} $t=t+1$\\
+%2.2 \hspace*{0.3cm}  For $i=1:N$\\
+%2.3 \hspace*{0.4cm} generate a candidate component $\theta_i^∗$ from tje conditional distribution:
+%$$
+%\theta_i^∗ \approx p( \theta_i | last(\theta_{j\neq i}) )
+%$$
+%
+%2.4 \hspace*{0.3cm}  EndFor \\
+%3.\hspace*{0.2cm} Until $t = T$\\
+%}\\[.4cm]
+%\\
+%\\
 
