@@ -72,7 +72,7 @@ Such trajectories in 3D are estimated by measuring their projections onto 2D ima
 Observation $X_i$ is described as $5\times1$ vector containing the center $C(u,v)$ of bounding box enclosing the detected object on image,its dimensions $w \times h$ and the scale $s$ at which the object detector has the found the best matching with object model.
 Given the observations $X_i$ found by object detector, tracks $Z_i$ in 3D are estimated by jointly searching the most plausible explanation for both camera and all the existing targets’ states using the projection function $f_P$ characterizing by the camera model.\\
 \subsection{Camera Model}
-A 3D Object  $Z= [x_z, z_z, h_z]$ in world coordinate system, is characterized by it's projection on ground plane $(x_z, z_z)$ and its height $h_z$ and is related to its location $\hat{Z}$ in the camera coordinate system through the relation \ref{eqn: Exstrinsic Transform}, as depicted in figure
+A 3D Target  $Z= [x_z, z_z, h_z]$ in world coordinate system, is characterized by it's projection on ground plane $(x_z, z_z)$ and its height $h_z$ and is related to its location $\hat{Z}$ in the camera coordinate system through the relation \ref{eqn: Exstrinsic Transform}, as depicted in figure
 \begin{eqnarray} \label{eqn: Exstrinsic Transform}
 Z= \left[ 
 \begin{array}{cc}
@@ -92,12 +92,24 @@ where:
 \item $R(\phi_{\theta})$ is the $2\times2$ rotation matrix encoding the panning of the camera (rotation around $h$ axis) with angle specified by $\phi_{\theta}$ .
 \item $x_{\theta}$, $z_{\theta}$ are the 3D location respect to reference system associated to the initial frame.
 \end{itemize}
-The Camera Extrinsic Parameters are encoded by $3\times1$ parameters vector $Ce_{\theta}=\{\phi_{\theta}, x_{\theta}, z_{\theta}\}$.
-The camera is supposed to be at random height $h_{\theta}$,  moving with absolute velocity $r_{\theta}$. 
-Each 3D Object $Z$ is projected on the image plane trough the equation: 
+The Camera Extrinsic Parameters are encoded by $3\times1$ parameters vector $Ce_{\theta}=\{\phi_{\theta}, x_{\theta}, z_{\theta}\}$ encoding the rigid transformation depicted in figure \ref{fig: Estrinseci}
+\begin{figure}\label{fig: Estrinseci}
+\includegraphics[width=0.5\textwidth]{ImaginiLatex/Estrinseci.eps} 
+\caption{ Camera Extrinsic Parameters encoding the rigid transform between camera coordinate system and world coordinate system}
+\end{figure}
+The camera is supposed to be at random height $h_{\theta}$,  moving with absolute velocity $r_{\theta}$ with the $Z_cam$ axis aligned with the Optic Axis and the $Y_cam$ axis pointed to the ground plane as depicted in figure \ref{fig: UV}.
+\begin{figure} \label{fig: UV}
+\begin{tabular}{cc} 
+\includegraphics[width=0.5 \textwidth]{ImaginiLatex/Ux.eps} &
+\includegraphics[width=0.5\textwidth]{ImaginiLatex/Vx.eps} \\
+\textbf{a} & \textbf{b}
+\end{tabular}
+\caption{\textbf{a} Since the yellow and the azure triangle are similar,the equality $f_{\theta}:z_z = u_X:x_z$ holds. \textbf{b} Since the yellow and the blue triangle are similar, the equality $f_{\theta}:z_z = v_X:h_{\theta}$ holds. }
+\end{figure}
+
+Each 3D Object $Z$ is then projected on the image plane trough the equation: 
 \begin{eqnarray} \label{eqn: Perspective Projection}
-X=f_P(Z,\Theta)=
-= \left[
+X=f_P(Z,\Theta)= \left[
 \begin{array}{c}
 u_X \\
 v_X\\
@@ -115,7 +127,7 @@ h_X
 where:
 \begin{itemize}
 \item $(u_X,v_X)$ are the bottom-center point location of the 3D Object,
-\item $h_X$ is the 3D Object Height,
+\item $h_X$ is the Height of the 3D Object measured in the image,
 \item $f_{\theta}$ is the focal length,
 \item $u_{\theta}$ horizontal center point,
 \item $v_{\theta}$ horizon position.
@@ -184,8 +196,15 @@ In following sections, we assume the correspondence is given by this algorithm, 
 \newpage
 
 \section{Sequential Tracking Model}
-In this section, we discuss in details the probabilistic model defined in the previous section and how the tracking problem is formulated in term Bayesian optimal-filtering inference problem, as discussed in section.\\
-The graphical model is composed by the following hidden variables:
+In this section, we analyze in details the probabilistic model characterizing the  multi-target tracking with single minimally calibrated camera formulating the estimation as  Bayesian optimal-filtering inference problem.\\
+\begin{figure}\label{fig: gm_mtt1}
+\includegraphics[width=0.5\textwidth]{ImaginiLatex/gm_mtt1.eps} 
+\caption{ Graphical model describing underlying model for multi-object tracking. Shaded
+nodes represent observable variables and empty nodes shows the hidden variables.
+It shows overall relationship between observations $X$, $Y$, $\tau$ , camera parameters $\Theta$, ground features’ state G and targets’ states $Z$. Here, we dropped the mean-shift observation $Y$ on the graph to avoid clutter}
+\end{figure}
+
+The whole graphical showed in figure \label{ref: gm_mtt1}  is composed by the following hidden variables:
 \begin{itemize}
 \item \textbf{Target state} variable $Z^t = \{Z_{t,i} \}_{i=1}^{N_Z}$ containing all the information for each detected target a time $t$.The state for the target $i$ a time $t$ is composed of 6 variables $Z_ {i,t}=[ x,z,v_x,v_z,h,c]$ where:
 \begin{itemize}
@@ -211,7 +230,7 @@ The graphical model is composed by the following hidden variables:
 \end{itemize}
 \end{itemize}
 All hidden states are grouped in the Hidden Vector $\Omega^{t} = [Z_{t}, \Theta_{t}, G_{t}]$.
-The observed variables in the model are features extracted on the images through object detectors and feature points detector like KLT or SIFT :
+The observed variables in the model are features extracted on the images through object detectors and feature points detector like \textbf{KLT} or \textbf{SIFT} :
 \begin{itemize}
 \item \textbf{Target observation} variable $X^t =\{X_{t,j}\}_{j=1}^{N_{C}}$ containing $N_{C}$ detections provided by the object detector for the class $C=1..Nclasses$ at time $t$ stored as $5\times1$ vector $X_{t,j}= [u_c,v_c,w,p_{obj}]$ where:
 \begin{itemize}
@@ -231,8 +250,7 @@ for each tracked target variable, the tracker produces a $5\times1$ vector $Y_{t
 All the observations are grouped in the Visible Vector $\chi^t = [X^t , Y^t , \tau^{t}]$.
 
 Following the optimal-filtering approach we use the probabilistic relationship between the hidden states $\Omega^{t}$ and the observations $\chi^t$ to derive the recursive equations for computing the predictive distribution $p(\Omega^{t} |\chi^{t-1})$ and the filtering distribution $p(\Omega^{t} |\chi^{t} )$ on the time step $t$ as discussed in section \ref{sec: Optimal Filtering Equations}.\\
-Given the evidences $\chi^t$ and the estimates $\Omega^{t}$ at a previous time stamp, we
-can compute the posterior distribution $P(\Omega^{t} |\chi^t )$ as follows:
+Given the evidences $\chi^t$ and the estimates $\Omega^{t}$ at a previous time stamp, we can compute the posterior distribution $P(\Omega^{t} |\chi^t )$ as follows:
 
 \begin{eqnarray} \label{eqn: Posterior Distribution MTT}
 \underbrace{p(\Omega^{t} |\chi^{t} )}_{ \textit{posterior} } \approx  p(\chi^{t} |\Omega^{t} )
@@ -327,8 +345,12 @@ $$
 In real world crowded scenes, the assumption of independently moving targets from each other is rare. Moreover, once human targets form a group, they typically tend to move together in subsequent time frames, subject to an attractive force (group model ). Again, targets rarely occupy the same physical space, so we can introduce a repulsion force to model this event. Following this considerations, we can introduce two interaction models between targets (repulsion and group model) to aid the tracking algorithm.\\
 Since these two interactions are mutually exclusive, we introduce a hidden variable $\beta_{i,j,t}$ that lets us select the appropriate interaction model (mode
 variable).\\
-The interactions are modeled as pairwise potentials between current targets’ states, thus forming a Markov Random Field as shown on fig.2. 
-
+The interactions are modeled as pairwise potentials between current targets’ states, thus forming a Markov Random Field as shown on figure \ref{fig: gm_mtt2} .
+\begin{figure}\label{fig: gm_mtt2}
+\includegraphics[width=0.5\textwidth]{ImaginiLatex/gm_mtt2.eps} 
+\caption{ Graphical model describing the interaction between
+targets $(i, j, k)$. The interaction is modelled by the undirected edges between   targets’ states $Z$.}
+\end{figure}
 Thus, the targets motion model can be farther modeled as:
 \begin{eqnarray}\label{eqn: transition factorized 2}
 p(Z^{t} |Z^{t-1} ) = \prod_{i=1}^{N} p(Z^{t,i} | Z^{t-1,i})= \nonumber \\
@@ -519,17 +541,17 @@ $$
   p_i=\frac{w_i}{\sum_{k=0}^{M} w_k}
 $$
 1.  \hspace*{0.2cm} if(Sampled State Variable is Camera $\Theta^t$) \\
-1.1 \hspace*{0.4cm} generate $Theta^s=N(Theta^{t-1},S_{\Theta})$\\
+1.1 \hspace*{0.4cm} generate $\Theta^r=N(\Theta^{t-1},S_{\Theta})$\\
 \\
 2.  \hspace*{0.2cm} if(Sampled Variable is the $i$-Target $Z_i^t=\{x_i, z_i, v_i^x , v_i^z , h_i,c_i \}_i$) \\ 
-2.1 \hspace*{0.4cm} generate $Z_i^s=\{x_i, z_i, v_i^x , v_i^z , h_i \}$ from $N(Z_i^{t-1},S_{Z}^t)$ \\
+2.1 \hspace*{0.4cm} generate $Z_i^r=\{x_i, z_i, v_i^x , v_i^z , h_i \}$ from $N(Z_i^{t-1},S_{Z}^t)$ \\
 2.2 \hspace*{0.4cm} set the class variable $c_i$ by switching randomly $c_i^{t-1}$, with a probability \\ 
 \hspace*{0.9cm} of switching $p_{c}^f$ \\
 2.3 \hspace*{0.4cm} set $\beta_{i,j}^t$ for all $j$ by switching randomly interaction mode $\beta_{i,j}^{t-1}$, \\ 
 \hspace*{0.9cm}  with a probability of switching $p_{\beta}$ \\
 \\
 3.  \hspace*{0.2cm} if(Sampled Variable is the $j$-Ground point $G_j=\{x_j, z_j\}$ \\
-3.1 \hspace*{0.4cm} generate $G_j^s=N(G_j^{t-1},S_G^t)$ \\
+3.1 \hspace*{0.4cm} generate $G_j^r=N(G_j^{t-1},S_G^t)$ \\
 3.2 \hspace*{0.4cm} set the indicator variable $\alpha_j^t$ by switching randomly $\alpha_j^t$,\\
 \hspace*{0.9cm}  with a probability of switching $p_{\alpha}^f$ 
 }\\[.4cm]

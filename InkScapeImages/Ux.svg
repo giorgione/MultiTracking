@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.1 r9760"
+   sodipodi:docname="Ux.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Mend"
+       style="overflow:visible;">
+      <path
+         id="path3787"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6) rotate(180) translate(0,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mend"
+       style="overflow:visible;">
+      <path
+         id="path3769"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Mstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Mstart"
+       style="overflow:visible">
+      <path
+         id="path3784"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6) translate(0,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.5"
+     inkscape:cx="381.36672"
+     inkscape:cy="396.33523"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1024"
+     inkscape:window-height="693"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:none;stroke:#f80000;stroke-width:6.02079535;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:url(#Arrow2Mend)"
+       d="m 330.28571,316.66537 0,662.60772"
+       id="path2985"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997" />
+    <path
+       style="fill:none;stroke:#f70006;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
+       d="m 93.42857,495.50504 597.00206,0"
+       id="path2987"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:0.78602618;fill:#e3f70c;fill-opacity:1;stroke:#f70000;stroke-width:3.00009251;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path4947-7"
+       sodipodi:cx="511.42856"
+       sodipodi:cy="718.07648"
+       sodipodi:rx="20"
+       sodipodi:ry="22.857143"
+       d="m 531.42856,718.07648 a 20,22.857143 0 1 1 -40,0 20,22.857143 0 1 1 40,0 z"
+       transform="matrix(0.46368003,0,0,0.4255208,93.43222,188.80571)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5451-6"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#fd0009;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+       transform="translate(-358.7354,139.7583)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997"><flowRegion
+         id="flowRegion5453-2"><rect
+           id="rect5455-7"
+           width="128.57143"
+           height="102.85714"
+           x="582.85712"
+           y="755.2193"
+           style="fill:#fd0009;fill-opacity:1" /></flowRegion><flowPara
+         id="flowPara5459-0">Z<flowSpan
+   style="font-size:20px;font-style:italic;-inkscape-font-specification:Sans Italic"
+   id="flowSpan3393">cam</flowSpan></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5261"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Sans;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
+         id="flowRegion5263"><rect
+           id="rect5265"
+           width="91.428574"
+           height="54.285713"
+           x="125.71429"
+           y="766.64789" /></flowRegion><flowPara
+         id="flowPara5267" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5269"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       inkscape:transform-center-x="243.33333"
+       inkscape:transform-center-y="220"
+       transform="translate(462,-336)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997"><flowRegion
+         id="flowRegion5271"><rect
+           id="rect5273"
+           width="174.57143"
+           height="71.714287"
+           x="131.42857"
+           y="766.64789" /></flowRegion><flowPara
+         id="flowPara5275"
+         style="fill:#f80000;fill-opacity:1">X<flowSpan
+   style="font-size:20px;font-style:italic;-inkscape-font-specification:Sans Italic"
+   id="flowSpan3391">cam</flowSpan></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5277"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Sans;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
+         id="flowRegion5279"><rect
+           id="rect5281"
+           width="62.857143"
+           height="160"
+           x="191.42857"
+           y="780.93359" /></flowRegion><flowPara
+         id="flowPara5283" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5285"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(-150.7619,372.38095)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997"><flowRegion
+         id="flowRegion5287"><rect
+           id="rect5289"
+           width="414.28571"
+           height="77.14286"
+           x="188.57143"
+           y="238.07646" /></flowRegion><flowPara
+         id="flowPara5291"
+         style="font-style:italic;fill:#0000f8;fill-opacity:1;-inkscape-font-specification:Sans Italic">Image Plane</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5293"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Sans;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
+         id="flowRegion5295"><rect
+           id="rect5297"
+           width="0"
+           height="71.428574"
+           x="471.42856"
+           y="252.36218" /></flowRegion><flowPara
+         id="flowPara5299" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5301"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(-2.571429,271.42857)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997"><flowRegion
+         id="flowRegion5303"><rect
+           id="rect5305"
+           width="362.85715"
+           height="57.14286"
+           x="48.57143"
+           y="163.79076" /></flowRegion><flowPara
+         id="flowPara5307"
+         style="font-style:italic;fill:#f90000;fill-opacity:1;-inkscape-font-specification:Sans Italic">Focal Plane</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#00ec00;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:5, 15;stroke-dashoffset:0"
+       d="M 330.95238,495.69551 478.57143,828.55266"
+       id="path5309"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5311"
+       style="font-size:40px;font-style:italic;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#00f000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Italic"
+       transform="translate(173.75,110)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997"><flowRegion
+         id="flowRegion5313"><rect
+           id="rect5315"
+           width="77.14286"
+           height="57.142857"
+           x="111.42857"
+           y="403.79074"
+           style="font-style:italic;fill:#00f000;fill-opacity:1;-inkscape-font-specification:Sans Italic" /></flowRegion><flowPara
+         id="flowPara5317">f<flowSpan
+   style="font-size:65.00091553%;baseline-shift:sub;fill:#00f000;fill-opacity:1"
+   id="flowSpan5335">Θ</flowSpan></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5319"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#00f700;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(30,26)"><flowRegion
+         id="flowRegion5321"><rect
+           id="rect5323"
+           width="122.85714"
+           height="71.428574"
+           x="588.57141"
+           y="612.36218"
+           style="fill:#00f700;fill-opacity:1" /></flowRegion><flowPara
+         id="flowPara5325"><flowSpan
+           style="font-size:65.00091553%;baseline-shift:sub;fill:#00f700;fill-opacity:1"
+           id="flowSpan5327" /></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5347"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#00f900;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(71.25,101.25)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997"><flowRegion
+         id="flowRegion5349"><rect
+           id="rect5351"
+           width="134.28572"
+           height="57.142857"
+           x="265.71429"
+           y="506.64789"
+           style="fill:#00f900;fill-opacity:1" /></flowRegion><flowPara
+         id="flowPara5353"
+         style="font-style:italic;fill:#00f900;fill-opacity:1;-inkscape-font-specification:Sans Italic">U<flowSpan
+   style="font-size:65%;baseline-shift:sub"
+   id="flowSpan4106">X</flowSpan></flowPara></flowRoot>    <path
+       style="fill:none;stroke:#00f700;stroke-width:6.08699656;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:6.08699632, 12.17399265;stroke-dashoffset:0"
+       d="m 478.7619,830.69405 0,-334.52234"
+       id="path5357"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:0.78602618;fill:#e3f70c;fill-opacity:1;stroke:#f70000;stroke-width:3.00009251;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path4947-3"
+       sodipodi:cx="511.42856"
+       sodipodi:cy="718.07648"
+       sodipodi:rx="20"
+       sodipodi:ry="22.857143"
+       d="m 531.42856,718.07648 a 20,22.857143 0 1 1 -40,0 20,22.857143 0 1 1 40,0 z"
+       transform="matrix(0.46368003,0,0,0.4255208,242.57508,522.51999)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:0.78602618;fill:#e3f70c;fill-opacity:1;stroke:#f70000;stroke-width:3.00009251;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path4947-9"
+       sodipodi:cx="511.42856"
+       sodipodi:cy="718.07648"
+       sodipodi:rx="20"
+       sodipodi:ry="22.857143"
+       d="m 531.42856,718.07648 a 20,22.857143 0 1 1 -40,0 20,22.857143 0 1 1 40,0 z"
+       transform="matrix(0.26344906,0,0,0.25031871,245.55034,427.18564)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="396.66666"
+       y="469.02887"
+       id="text3226"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3228"
+         x="0"
+         y="0"
+         style="fill:#00f800;fill-opacity:1"><tspan
+           style="font-size:65.00091553%;baseline-shift:sub;fill:#00f800;fill-opacity:1"
+           id="tspan3232" /></tspan></text>
+    <path
+       style="fill:none;stroke:#0000ee;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 228.91667,606.52885 173.33333,0 53.33333,0"
+       id="path3234"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:0.78602618;fill:#e3f70c;fill-opacity:1;stroke:#f70000;stroke-width:3.00009251;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path4947-9-4"
+       sodipodi:cx="511.42856"
+       sodipodi:cy="718.07648"
+       sodipodi:rx="20"
+       sodipodi:ry="22.857143"
+       d="m 531.42856,718.07648 a 20,22.857143 0 1 1 -40,0 20,22.857143 0 1 1 40,0 z"
+       transform="matrix(0.26344906,0,0,0.25031871,343.76463,315.11421)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4042"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997"><flowRegion
+         id="flowRegion4044"><rect
+           id="rect4046"
+           width="93.333336"
+           height="56.666668"
+           x="416.66666"
+           y="422.36218" /></flowRegion><flowPara
+         id="flowPara4048"
+         style="fill:#00f400;fill-opacity:1;font-style:italic;-inkscape-font-specification:Sans Italic">Z<flowSpan
+   style="font-size:65%;baseline-shift:sub;fill:#00f400;fill-opacity:1;font-style:italic;-inkscape-font-specification:Sans Italic"
+   id="flowSpan4050">X</flowSpan></flowPara></flowRoot>    <path
+       style="fill:none;stroke:#00f700;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:5, 15;stroke-dashoffset:0"
+       d="m 476.66667,822.36218 -150,0"
+       id="path4052"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:0.78602618;fill:#e3f70c;fill-opacity:1;stroke:#f70000;stroke-width:3.00009251;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path4947-9-4-0"
+       sodipodi:cx="511.42856"
+       sodipodi:cy="718.07648"
+       sodipodi:rx="20"
+       sodipodi:ry="22.857143"
+       d="m 531.42856,718.07648 a 20,22.857143 0 1 1 -40,0 20,22.857143 0 1 1 40,0 z"
+       transform="matrix(0.26344906,0,0,0.25031871,195.76463,643.11421)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997" />
+    <flowRoot
+       transform="translate(-192.26526,355.69729)"
+       xml:space="preserve"
+       id="flowRoot4042-4"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997"><flowRegion
+         id="flowRegion4044-5"><rect
+           id="rect4046-4"
+           width="93.333336"
+           height="56.666668"
+           x="416.66666"
+           y="422.36218" /></flowRegion><flowPara
+         id="flowPara4048-1"
+         style="font-style:italic;fill:#00f400;fill-opacity:1;-inkscape-font-specification:Sans Italic">Z<flowSpan
+   style="font-size:65.00091553%;font-style:italic;baseline-shift:sub;-inkscape-font-specification:Sans Italic"
+   id="flowSpan4104">Z</flowSpan></flowPara></flowRoot>    <path
+       style="opacity:0.13360326;fill:#00f4ed;fill-opacity:1;stroke:#418ead;stroke-width:0.94596684px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 335.97298,504.08516 0,315.05404 132.55404,0 z"
+       id="path4108"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4110"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997"><flowRegion
+         id="flowRegion4112"><rect
+           id="rect4114"
+           width="72.5"
+           height="55"
+           x="520"
+           y="821.11218" /></flowRegion><flowPara
+         id="flowPara4116"
+         style="fill:#00f000;fill-opacity:1">Z</flowPara></flowRoot>    <path
+       style="opacity:0.54251009;fill:#e9c100;fill-opacity:1;stroke:none"
+       d="m 373.75,601.86218 -37.5,0 0,-80 z"
+       id="path4120"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Ux.png"
+       inkscape:export-xdpi="68.269997"
+       inkscape:export-ydpi="68.269997" />
+  </g>
+</svg>

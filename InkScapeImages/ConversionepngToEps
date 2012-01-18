@@ -1,0 +1,5 @@
+#!/bin/bash
+# example 2
+for file in ls *.png; do
+    convert "$file" $(echo "$file" | sed 's/\.png$/\.eps/')
+done

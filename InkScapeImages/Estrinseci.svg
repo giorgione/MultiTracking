@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.1 r9760"
+   sodipodi:docname="Estrinseci.svg"
+   inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Estrinseci.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient6038">
+      <stop
+         style="stop-color:#d9ff0c;stop-opacity:1;"
+         offset="0"
+         id="stop6040" />
+      <stop
+         style="stop-color:#d9ff0c;stop-opacity:0;"
+         offset="1"
+         id="stop6042" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient6014">
+      <stop
+         style="stop-color:#00f3f3;stop-opacity:1;"
+         offset="0"
+         id="stop6016" />
+      <stop
+         style="stop-color:#00f3f3;stop-opacity:0;"
+         offset="1"
+         id="stop6018" />
+    </linearGradient>
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Mend"
+       style="overflow:visible;">
+      <path
+         id="path3969"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6) rotate(180) translate(0,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mend"
+       style="overflow:visible;">
+      <path
+         id="path3951"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lend"
+       style="overflow:visible;">
+      <path
+         id="path3963"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Mstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Mstart"
+       style="overflow:visible">
+      <path
+         id="path3966"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6) translate(0,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lstart"
+       style="overflow:visible">
+      <path
+         id="path3960"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         id="path3942"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         transform="scale(0.8) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Mstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Mstart-1"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3966-0"
+         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="scale(0.6,0.6)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Mend-8"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3969-9"
+         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="scale(-0.6,-0.6)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Mstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Mstart-6"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3966-02"
+         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="scale(0.6,0.6)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Mend-88"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3969-4"
+         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="scale(-0.6,-0.6)" />
+    </marker>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6014"
+       id="linearGradient6020"
+       x1="18"
+       y1="353.79074"
+       x2="733.42859"
+       y2="353.79074"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       id="filter6034"
+       x="-1.113253"
+       width="3.226506"
+       y="-1.3014085"
+       height="3.602817">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="330"
+         id="feGaussianBlur6036" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6038"
+       id="linearGradient6048"
+       x1="-776.85712"
+       y1="319.50504"
+       x2="1522.5714"
+       y2="319.50504"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(694.28571,622.85714)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="50.627473"
+     inkscape:cy="400"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-nodes="true"
+     inkscape:window-width="1024"
+     inkscape:window-height="693"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
+    <path
+       style="fill:none;stroke:#0000f8;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow2Mstart);marker-end:url(#Arrow2Mend)"
+       d="m 73.546978,81.121725 0,505.023775 539.904512,0"
+       id="path3937"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Estrinseci.png"
+       inkscape:export-xdpi="70.389999"
+       inkscape:export-ydpi="70.389999" />
+    <path
+       style="fill:none;stroke:#0000f8;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:7, 21;stroke-dashoffset:0;marker-start:none;marker-end:none"
+       d="m 324.12125,148.5939 0,282.85715 305.71428,0"
+       id="path3937-0"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Estrinseci.png"
+       inkscape:export-xdpi="70.389999"
+       inkscape:export-ydpi="70.389999" />
+    <path
+       style="fill:none;stroke:#ef000c;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-start:url(#Arrow2Mstart);marker-end:url(#Arrow2Mend)"
+       d="M 160.64715,200.04202 322.88735,431.74504 573.31383,256.39453"
+       id="path3937-0-9"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Estrinseci.png"
+       inkscape:export-xdpi="70.389999"
+       inkscape:export-ydpi="70.389999" />
+    <path
+       style="fill:none;stroke:#00f800;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:16, 4;stroke-dashoffset:0"
+       d="m 441.92892,352.14555 c 0,0 91.13206,40.88397 -1.85983,74.71897"
+       id="path5407"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Estrinseci.png"
+       inkscape:export-xdpi="70.389999"
+       inkscape:export-ydpi="70.389999" />
+    <path
+       style="fill:none;stroke:#00f300;stroke-width:5.0518508;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:5.05185094, 15.15555281;stroke-dashoffset:0"
+       d="M 82.597354,583.76482 318.09532,437.47698"
+       id="path5409"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Estrinseci.png"
+       inkscape:export-xdpi="70.389999"
+       inkscape:export-ydpi="70.389999" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5411"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><flowRegion
+         id="flowRegion5413"><rect
+           id="rect5415"
+           width="140"
+           height="102.85714"
+           x="522.85712"
+           y="632.36218" /></flowRegion><flowPara
+         id="flowPara5417" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5427"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><flowRegion
+         id="flowRegion5429"><rect
+           id="rect5431"
+           width="108.57143"
+           height="77.14286"
+           x="551.42859"
+           y="318.07648" /></flowRegion><flowPara
+         id="flowPara5433" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5435"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><flowRegion
+         id="flowRegion5437"><rect
+           id="rect5439"
+           width="117.14286"
+           height="60"
+           x="545.71429"
+           y="318.07648" /></flowRegion><flowPara
+         id="flowPara5441" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5443"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#00f700;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(47.41782,-348.83379)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Estrinseci.png"
+       inkscape:export-xdpi="70.389999"
+       inkscape:export-ydpi="70.389999"><flowRegion
+         id="flowRegion5445"><rect
+           id="rect5447"
+           width="174.28572"
+           height="111.42857"
+           x="434.28571"
+           y="689.50507"
+           style="fill:#00f700;fill-opacity:1" /></flowRegion><flowPara
+         id="flowPara5449">ϕ</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5451"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000f9;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(-469.14286,-686.57143)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Estrinseci.png"
+       inkscape:export-xdpi="70.389999"
+       inkscape:export-ydpi="70.389999"><flowRegion
+         id="flowRegion5453"><rect
+           id="rect5455"
+           width="128.57143"
+           height="102.85714"
+           x="582.85712"
+           y="755.2193"
+           style="fill:#0000f9;fill-opacity:1" /></flowRegion><flowPara
+         id="flowPara5459">Z</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5463"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000f9;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(-477.14286,-648.57143)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Estrinseci.png"
+       inkscape:export-xdpi="70.389999"
+       inkscape:export-ydpi="70.389999"><flowRegion
+         id="flowRegion5465"><rect
+           id="rect5467"
+           width="85.714287"
+           height="54.285713"
+           x="588.57141"
+           y="698.07648"
+           style="fill:#0000f9;fill-opacity:1" /></flowRegion><flowPara
+         id="flowPara5469">^</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5471"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000f5;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(483.02116,-210.53152)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Estrinseci.png"
+       inkscape:export-xdpi="70.389999"
+       inkscape:export-ydpi="70.389999"><flowRegion
+         id="flowRegion5473"><rect
+           id="rect5475"
+           width="134.28572"
+           height="88.571426"
+           x="182.85715"
+           y="720.93359"
+           style="fill:#0000f5;fill-opacity:1" /></flowRegion><flowPara
+         id="flowPara5477">X</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5479"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000f5;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(497.02116,-150.25417)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Estrinseci.png"
+       inkscape:export-xdpi="70.389999"
+       inkscape:export-ydpi="70.389999"><flowRegion
+         id="flowRegion5481"><rect
+           id="rect5483"
+           width="77.14286"
+           height="74.285713"
+           x="165.71428"
+           y="643.79077"
+           style="fill:#0000f5;fill-opacity:1" /></flowRegion><flowPara
+         id="flowPara5485">^</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5487"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><flowRegion
+         id="flowRegion5489"><rect
+           id="rect5491"
+           width="154.28572"
+           height="128.57143"
+           x="162.85715"
+           y="766.64789" /></flowRegion><flowPara
+         id="flowPara5493" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5451-6"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#fd0009;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(-393.68778,-608.43217)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Estrinseci.png"
+       inkscape:export-xdpi="70.389999"
+       inkscape:export-ydpi="70.389999"><flowRegion
+         id="flowRegion5453-2"><rect
+           id="rect5455-7"
+           width="128.57143"
+           height="102.85714"
+           x="582.85712"
+           y="755.2193"
+           style="fill:#fd0009;fill-opacity:1" /></flowRegion><flowPara
+         id="flowPara5459-0">Z</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5471-4"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#f30006;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(380.62723,-565.29378)"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Estrinseci.png"
+       inkscape:export-xdpi="70.389999"
+       inkscape:export-ydpi="70.389999"><flowRegion
+         id="flowRegion5473-4"><rect
+           id="rect5475-0"
+           width="134.28572"
+           height="88.571426"
+           x="182.85715"
+           y="720.93359"
+           style="fill:#f30006;fill-opacity:1" /></flowRegion><flowPara
+         id="flowPara5477-3">X</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5549"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       inkscape:export-xdpi="70.389999"
+       inkscape:export-ydpi="70.389999"
+       inkscape:export-filename="/home/giorgio/Desktop/MultiTracking/InkScapeImages/Estrinseci.png"><flowRegion
+         id="flowRegion5551"><rect
+           id="rect5553"
+           width="354.16846"
+           height="83.892014"
+           x="308.57144"
+           y="449.50504" /></flowRegion><flowPara
+         id="flowPara5555"
+         style="fill:#00f700;fill-opacity:1">( X<flowSpan
+   style="font-size:65.00091553%;baseline-shift:sub;fill:#00f700;fill-opacity:1"
+   id="flowSpan5559">Θ</flowSpan> ,  Z<flowSpan
+   style="font-size:65.00091553%;baseline-shift:sub;fill:#00f700;fill-opacity:1"
+   id="flowSpan5561">Θ</flowSpan>)</flowPara></flowRoot>  </g>
+</svg>
